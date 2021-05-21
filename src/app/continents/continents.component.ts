@@ -32,5 +32,6 @@ export class ContinentsComponent implements OnInit {
       maxHeight: 6194,
     });
     this.continents = this.continentsService.getContinents();
+    this.inputValue = '';
   }
 }
