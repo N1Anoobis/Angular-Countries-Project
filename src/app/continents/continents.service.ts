@@ -1,6 +1,9 @@
+import { EventEmitter } from "@angular/core";
 import { ContinentI } from "src/typings";
 
 export class ContinentService {
+continentsChanged = new EventEmitter<ContinentI[]>()
+
   private  continents: Array<ContinentI> = [
     {
       entity: 'continent',
@@ -79,13 +82,15 @@ export class ContinentService {
   }
 
   removeContinent(name: string) {
-    // delete this.continents[name];
-  this.continents.filter(item => {
-      console.log(item)
-      name !== item.name
-    })
-// this.continents = continents
+    const continents = []
+    this.continents.filter(item => {
+      if(item.name !== name){
+        continents.push(item)
+      }
 
-    console.log(this.continents)
+    })
+this.continents = continents
+
+    console.log(continents)
   }
 }

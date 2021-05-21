@@ -1,5 +1,8 @@
 <div class="container" *ngFor="let continent of continents ">
+<div class="item-container">
   <div class="item" [routerLink]="['/continent', continent.name]">
     {{continent.name}}
   </div>
+ <span (click)="remove(continent.name)"> x </span>
+</div>
 </div>

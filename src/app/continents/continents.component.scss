@@ -3,4 +3,8 @@
   .item {
     margin: 15px;
   }
+  .item-container {
+    display: flex;
+    align-items: center;
+  }
 }

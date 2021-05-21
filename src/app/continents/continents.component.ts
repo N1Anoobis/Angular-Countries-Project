@@ -16,5 +16,6 @@ export class ContinentsComponent implements OnInit {
   }
   remove(name: string) {
     this.continentsService.removeContinent(name);
+    this.continents = this.continentsService.getContinents();
   }
 }

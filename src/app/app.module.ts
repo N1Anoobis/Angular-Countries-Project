@@ -9,8 +9,9 @@ import { ContinentService } from './continents/continents.service';
 import { ContinentComponent } from './continent/continent.component';
 
 const appRoutes: Routes = [
-  {path: '', component: ContinentsComponent},
-  {path: 'continent/:id',component: ContinentComponent}
+  {path: 'continents', component: ContinentsComponent},
+  {path: 'continent/:id',component: ContinentComponent},
+  {path: '', redirectTo: "continents" , pathMatch: 'full' },
 
 ]
 
