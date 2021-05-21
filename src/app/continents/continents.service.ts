@@ -1,10 +1,7 @@
-import { EventEmitter } from "@angular/core";
-import { ContinentI } from "src/typings";
+import { ContinentI } from 'src/typings';
 
 export class ContinentService {
-continentsChanged = new EventEmitter<ContinentI[]>()
-
-  private  continents: Array<ContinentI> = [
+  private continents: Array<ContinentI> = [
     {
       entity: 'continent',
       id: 'europe',
@@ -78,19 +75,20 @@ continentsChanged = new EventEmitter<ContinentI[]>()
   ];
 
   getContinents() {
-    return this.continents.slice()
+    return this.continents.slice();
   }
 
   removeContinent(name: string) {
-    const continents = []
-    this.continents.filter(item => {
-      if(item.name !== name){
-        continents.push(item)
+    const continents = [];
+    this.continents.filter((item) => {
+      if (item.name !== name) {
+        continents.push(item);
       }
+    });
+    this.continents = continents;
+  }
 
-    })
-this.continents = continents
-
-    console.log(continents)
+  addContinent(continent: ContinentI) {
+    this.continents.push(continent);
   }
 }

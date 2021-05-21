@@ -7,26 +7,23 @@ import { AppComponent } from './app.component';
 import { ContinentsComponent } from './continents/continents.component';
 import { ContinentService } from './continents/continents.service';
 import { ContinentComponent } from './continent/continent.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
-  {path: 'continents', component: ContinentsComponent},
-  {path: 'continent/:id',component: ContinentComponent},
-  {path: '', redirectTo: "continents" , pathMatch: 'full' },
-
-]
+  { path: 'continents', component: ContinentsComponent },
+  { path: 'continent/:id', component: ContinentComponent },
+  { path: '', redirectTo: 'continents', pathMatch: 'full' },
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ContinentsComponent,
-    ContinentComponent,
-  ],
+  declarations: [AppComponent, ContinentsComponent, ContinentComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    FormsModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [ContinentService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

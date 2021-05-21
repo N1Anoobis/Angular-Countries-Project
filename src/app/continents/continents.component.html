@@ -1,8 +1,12 @@
 <div class="container" *ngFor="let continent of continents ">
-<div class="item-container">
-  <div class="item" [routerLink]="['/continent', continent.name]">
-    {{continent.name}}
+  <div class="item-container">
+    <div class="item" [routerLink]="['/continent', continent.name]">
+      {{continent.name}}
+    </div>
+    <span (click)="remove(continent.name)" class="cancel"> x </span>
   </div>
- <span (click)="remove(continent.name)"> x </span>
 </div>
+<hr>
+<div>
+  <input type="text" [(ngModel)]="inputValue"> <button (click)="addContinent()">Add</button>
 </div>
