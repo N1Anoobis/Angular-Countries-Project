@@ -1,0 +1,12 @@
+.countries-container {
+  margin: 0 50px;
+}
+
+.countries-list {
+  list-style: none;
+  padding-left: 0;
+
+  &__item {
+    padding: 5px 0px;
+  }
+}
