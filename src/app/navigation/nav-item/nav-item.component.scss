@@ -1,0 +1,24 @@
+.nav-item {
+  padding: 10px;
+  min-width: 100px;
+  list-style: none;
+}
+
+.nav-link {
+  display: block;
+  height: 18px;
+  text-align: center;
+  color: rgb(15, 15, 15);
+  text-decoration: none;
+  transition: 0.2s;
+
+  &:hover {
+    color: var(--color-font-active);
+    border-bottom: 1px dotted rgb(226, 166, 0);
+  }
+
+  &.active {
+    font-weight: 600;
+    color: rgb(226, 166, 0);
+  }
+}

@@ -1,0 +1,8 @@
+<div class="cities-container">
+  <ul class="cities-list">
+    <li class="cities-list__item" *ngFor="let city of cities">
+      <app-entity-list-item [data]="city"></app-entity-list-item>
+    </li>
+  </ul>
+  <router-outlet></router-outlet>
+</div>
