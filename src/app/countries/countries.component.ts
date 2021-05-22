@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CountryI } from 'src/typings';
 import { CountriesService } from './countries.service';
 
@@ -10,7 +10,7 @@ import { CountriesService } from './countries.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountriesComponent {
-  countries$: Observable<CountryI[]> = this.countriesService.state$;
+  countries$: Observable<CountryI[]> = this.countriesService.countries$;
   
   constructor(private countriesService: CountriesService) {
   }

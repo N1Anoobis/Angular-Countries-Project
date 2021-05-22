@@ -15,6 +15,8 @@ import { CitiesComponent } from './cities/cities.component';
 import { EntityListItemComponent } from './shared/entity-list-item/entity-list-item.component';
 import { CountryComponent } from './countries/country/country.component';
 import { CityComponent } from './cities/city/city.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
@@ -50,6 +52,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [ContinentService],
   bootstrap: [AppComponent],
