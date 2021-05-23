@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CountriesService } from './countries/countries.service';
-import { CitiesService } from './cities/cities.service';
+import { CountriesService } from './services/countries.service';
+import { CitiesService } from './services/cities.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

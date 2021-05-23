@@ -1,12 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-} from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CityI } from 'src/typings';
-import { CitiesService } from './cities.service';
+import { CitiesService } from '../services/cities.service';
 
 @Component({
   selector: 'app-cities',
@@ -14,21 +9,8 @@ import { CitiesService } from './cities.service';
   styleUrls: ['./cities.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CitiesComponent implements OnInit, OnDestroy {
-  cities: CityI[];
-  subscription: Subscription;
+export class CitiesComponent {
+  cities$: Observable<CityI[]> = this.citiesService.cities$;
 
-  constructor(private citiesService: CitiesService) {
-    this.cities = [];
-  }
-
-  ngOnInit(): void {
-    this.subscription = this.citiesService
-      .getCities()
-      .subscribe((data) => (this.cities = data));
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+  constructor(private citiesService: CitiesService) {}
 }

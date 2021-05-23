@@ -1,5 +1,5 @@
 <div class="cities-container">
-  <ul class="cities-list">
+  <ul *ngIf="cities$ | async as cities" class="cities-list">
     <li class="cities-list__item" *ngFor="let city of cities">
       <app-entity-list-item [data]="city"></app-entity-list-item>
     </li>

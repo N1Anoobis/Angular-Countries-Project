@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CountryI } from 'src/typings';
-import { CountriesService } from './countries.service';
+import { CountriesService } from '../services/countries.service';
 
 @Component({
   selector: 'app-countries',
