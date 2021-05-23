@@ -1,94 +1,61 @@
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ContinentI } from 'src/typings';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+export interface ContinentsState {
+  isLoading: boolean;
+  continents: ContinentI[];
+  error: string;
+}
+
+const initialState = {
+  isLoading: false,
+  continents: [],
+  error: '',
+};
+
+@Injectable({ providedIn: 'root' })
 export class ContinentService {
-  private continents: Array<ContinentI> = [
-    {
-      entity: 'continent',
-      id: 'europe',
-      name: 'Europe',
-      area: 10523000,
-      population: 746419440,
-      populationDensity: 72.9,
-      minHeight: 28,
-      maxHeight: 4811,
-    },
-    {
-      entity: 'continent',
-      id: 'asia',
-      name: 'Asia',
-      area: 44600000,
-      population: 4560667108,
-      populationDensity: 100,
-      minHeight: 422,
-      maxHeight: 8848,
-    },
-    {
-      entity: 'continent',
-      id: 'africa',
-      name: 'Africa',
-      area: 30370000,
-      population: 1275920972,
-      populationDensity: 36.4,
-      minHeight: 153,
-      maxHeight: 5895,
-    },
-    {
-      entity: 'continent',
-      id: 'antarctica',
-      name: 'Antarctica',
-      area: 14200000,
-      population: 4400,
-      populationDensity: 0.00031,
-      minHeight: 2870,
-      maxHeight: 4892,
-    },
-    {
-      entity: 'continent',
-      id: 'australia',
-      name: 'Australia',
-      area: 7741220,
-      population: 39000000,
-      populationDensity: 4.2,
-      minHeight: 15,
-      maxHeight: 2228,
-    },
-    {
-      entity: 'continent',
-      id: 'north-america',
-      name: 'North America',
-      area: 24709000,
-      population: 579024000,
-      populationDensity: 22.9,
-      minHeight: 86,
-      maxHeight: 6194,
-    },
-    {
-      entity: 'continent',
-      id: 'south-america',
-      name: 'South America',
-      area: 17840000,
-      population: 423581078,
-      populationDensity: 21.4,
-      minHeight: 105,
-      maxHeight: 6962,
-    },
-  ];
+
+  private readonly subject: BehaviorSubject<ContinentsState> =
+    new BehaviorSubject(initialState);
+
+  public readonly state$: Observable<ContinentsState> =
+    this.subject.asObservable();
+
+    public readonly continents$: Observable<ContinentI[]> = this.state$.pipe(
+      map((state) => {
+        return state.continents;
+      }),
+      distinctUntilChanged()
+    );
+
+    constructor(private http: HttpClient) {}
 
   getContinents() {
-    return this.continents.slice();
+    const request = this.http.request('get', 'http://localhost:3000/continents');
+    request.subscribe((load) =>
+      this.subject.next({
+        isLoading: false,
+        continents: load,
+        error: '',
+      } as ContinentsState)
+    );
   }
 
-  removeContinent(name: string) {
-    const continents = [];
-    this.continents.filter((item) => {
-      if (item.name !== name) {
-        continents.push(item);
-      }
-    });
-    this.continents = continents;
-  }
+  // removeContinent(name: string) {
+    // const continents = [];
+    // this.continents.filter((item) => {
+    //   if (item.name !== name) {
+    //     continents.push(item);
+    //   }
+    // });
+    // this.continents = continents;
+  // }
 
-  addContinent(continent: ContinentI) {
-    this.continents.push(continent);
-  }
+  // addContinent(continent: ContinentI) {
+  //   this.continents$
+  // }
 }
