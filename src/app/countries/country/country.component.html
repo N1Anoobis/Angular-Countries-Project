@@ -1,1 +1,19 @@
-<p>country works!</p>
+<div class="coutry-container">
+  <ul *ngIf="selectedCountry$ | async as country">
+    <li>
+      name: {{country.name}}
+    </li>
+    <li>
+      continent: {{country.continent}}
+    </li>
+    <li>
+      area: {{country.area}}
+    </li>
+    <li>
+      population: {{country.population}}
+    </li>
+    <li>
+      population density: {{country.populationDensity}}
+    </li>
+  </ul>
+</div>
