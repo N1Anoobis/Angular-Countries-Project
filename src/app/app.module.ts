@@ -16,20 +16,28 @@ import { EntityListItemComponent } from './shared/entity-list-item/entity-list-i
 import { CountryComponent } from './countries/country/country.component';
 import { CityComponent } from './cities/city/city.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CountryFormComponent } from './countries/country-form/country-form.component';
+import { RouterOutletComponent } from './shared/router-outlet/router-outlet.component';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
   { path: 'continent/:id', component: ContinentComponent },
   {
     path: 'countries',
-    component: CountriesComponent,
-    children: [{ path: ':id', component: CountryComponent }],
+    component: RouterOutletComponent,
+    children: [
+      { path: '', component: CountriesComponent },
+      { path: 'create', component: CountryFormComponent },
+      { path: ':id', component: CountryComponent },
+    ],
   },
   {
     path: 'cities',
-    component: CitiesComponent,
-    children: [{ path: ':id', component: CityComponent }],
+    component: RouterOutletComponent,
+    children: [
+      { path: '', component: CitiesComponent },
+      { path: ':id', component: CityComponent },
+    ],
   },
   { path: '', redirectTo: 'continents', pathMatch: 'full' },
 ];
@@ -46,13 +54,15 @@ const appRoutes: Routes = [
     EntityListItemComponent,
     CountryComponent,
     CityComponent,
+    CountryFormComponent,
+    RouterOutletComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [ContinentService],
   bootstrap: [AppComponent],

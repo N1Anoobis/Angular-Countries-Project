@@ -53,6 +53,7 @@ export class CountriesService {
       this.subject.next({
         isLoading: false,
         countries: load,
+        countryId: '',
         error: '',
       } as CountriesState)
     );
