@@ -1,0 +1,7 @@
+<ul *ngIf="selectedContinent$ | async as continent">
+  <li>name: {{ continent.name }}</li>
+  <li>continent: {{ continent.continent }}</li>
+  <li>area: {{ continent.area }}</li>
+  <li>population: {{ continent.population }}</li>
+  <li>population density: {{ continent.populationDensity }}</li>
+</ul>
