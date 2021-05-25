@@ -4,3 +4,7 @@
   <li>population: {{ continent.population }}</li>
   <li>population density: {{ continent.populationDensity }}</li>
 </ul>
+
+   <button class="item" [routerLink]="['/edit/continent', continent.name]">
+     edit
+   </button>

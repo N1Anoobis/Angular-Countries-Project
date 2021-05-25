@@ -129,7 +129,7 @@
     {
       "entity": "continent",
       "id": "Tue May 25 2021 15:35:43 GMT+0200 (Central European Summer Time)",
-      "name": "Mu",
+      "name": "Lemuria",
       "area": 4353,
       "population": 345,
       "populationDensity": 43453,
@@ -145,6 +145,16 @@
       "populationDensity": 56756765,
       "minHeight": 657676567,
       "maxHeight": 678678768
+    },
+    {
+      "entity": "continent",
+      "id": "Tue May 25 2021 18:06:17 GMT+0200 (Central European Summer Time)",
+      "name": "Atlantyda",
+      "area": 2222222222,
+      "population": 3333333333,
+      "populationDensity": 22222222222222,
+      "minHeight": 333333333332,
+      "maxHeight": 2222222222222
     }
   ]
 }

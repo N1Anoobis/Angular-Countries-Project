@@ -24,6 +24,6 @@
       <label for="maxHeight">maxHeight: </label>
       <input id="maxHeight" formControlName="maxHeight" type="number">
     </li>
-    <button [disabled]="continentForm.invalid" (click)="onSubmit()">Add</button>
+    <button [disabled]="continentForm.invalid" (click)="onSubmit()" [routerLink]="['/continents']">Save</button>
   </ul>
 </form>

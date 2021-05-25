@@ -18,10 +18,10 @@ import { CityComponent } from './cities/city/city.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateContinentComponent } from './create-continent/create-continent.component';
 
-
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
   { path: 'continent/:id', component: ContinentComponent },
+  { path: 'edit/continent/:id', component: CreateContinentComponent },
   { path: 'create/continent', component: CreateContinentComponent },
   {
     path: 'countries',

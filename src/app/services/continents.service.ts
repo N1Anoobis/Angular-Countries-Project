@@ -46,6 +46,18 @@ export class ContinentService {
 
   constructor(private http: HttpClient) {}
 
+  setState(callback: (state: ContinentsState) => ContinentsState): void {
+    const currentState = this.subject.getValue();
+    this.subject.next(callback(currentState));
+  }
+
+  setContinentId(id: string): void {
+    const callback: (state: ContinentsState) => ContinentsState = (state) => {
+      return { ...state, continentId: id };
+    };
+    this.setState(callback);
+  }
+
   getContinents() {
     const request = this.http.request(
       'get',
@@ -60,24 +72,18 @@ export class ContinentService {
     );
   }
 
-  postContinents(data: ContinentI) {
-    this.http
-      .post<ContinentI>('http://localhost:3000/continents', data)
-      .subscribe(() => {});
-  }
-
-  setState(callback: (state: ContinentsState) => ContinentsState): void {
-    const currentState = this.subject.getValue();
-    this.subject.next(callback(currentState));
-  }
-
   addContinent(newContinent: ContinentI): void {
-
     this.postContinents(newContinent);
     const callback: (state: ContinentsState) => ContinentsState = (state) => {
       return { ...state, continents: [...state.continents, newContinent] };
     };
     this.setState(callback);
+  }
+
+  postContinents(data: ContinentI) {
+    this.http
+      .post<ContinentI>('http://localhost:3000/continents', data)
+      .subscribe(() => {});
   }
 
   removeContinent(id: string) {
@@ -99,10 +105,24 @@ export class ContinentService {
       .subscribe(() => {});
   }
 
-  setContinentId(id: string): void {
+  editContinent(newContinent: ContinentI): void {
+    this.putContinent(newContinent);
     const callback: (state: ContinentsState) => ContinentsState = (state) => {
-      return { ...state, continentId: id };
+      return {
+        ...state,
+        continents: [
+          ...state.continents.map((continent) =>
+            continent.id === newContinent.id ? newContinent : continent
+          ),
+        ],
+      };
     };
     this.setState(callback);
+  }
+
+  putContinent(data: ContinentI) {
+    this.http
+      .put(`http://localhost:3000/continents/${data.id}`, data)
+      .subscribe(() => {});
   }
 }
