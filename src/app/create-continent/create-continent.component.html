@@ -1,0 +1,29 @@
+<form [formGroup]="continentForm" (ngSubmit)="onSubmit">
+  <ul class="form">
+    <li class="form__item">
+      <label for="name">Name: </label>
+      <input id="name" formControlName="name" type="text">
+    </li>
+    <li class="form__item">
+      <label for="area">Area: </label>
+      <input id="area" formControlName="area" type="number">
+    </li>
+    <li class="form__item">
+      <label for="population">Population: </label>
+      <input id="population" formControlName="population" type="number">
+    </li>
+    <li class="form__item">
+      <label for="populationDensity">populationDensity: </label>
+      <input id="populationDensity" formControlName="populationDensity" type="number">
+    </li>
+    <li class="form__item">
+      <label for="minHeight">minHeight: </label>
+      <input id="minHeight" formControlName="minHeight" type="number">
+    </li>
+    <li class="form__item">
+      <label for="maxHeight">maxHeight: </label>
+      <input id="maxHeight" formControlName="maxHeight" type="number">
+    </li>
+    <button [disabled]="continentForm.invalid" (click)="onSubmit()" [routerLink]="['/continents']">Save</button>
+  </ul>
+</form>

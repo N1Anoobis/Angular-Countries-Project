@@ -5,9 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContinentsComponent } from './continents/continents.component';
-import { ContinentService } from './continents/continents.service';
-import { ContinentComponent } from './continent/continent.component';
-import { FormsModule } from '@angular/forms';
+import { ContinentService } from './services/continents.service';
+import { ContinentComponent } from './continents/continent/continent.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavItemComponent } from './navigation/nav-item/nav-item.component';
 import { CountriesComponent } from './countries/countries.component';
@@ -18,10 +18,13 @@ import { CityComponent } from './cities/city/city.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CountryFormComponent } from './countries/country-form/country-form.component';
 import { RouterOutletComponent } from './shared/router-outlet/router-outlet.component';
+import { CreateContinentComponent } from './create-continent/create-continent.component';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
   { path: 'continent/:id', component: ContinentComponent },
+  { path: 'edit/continent/:id', component: CreateContinentComponent },
+  { path: 'create/continent', component: CreateContinentComponent },
   {
     path: 'countries',
     component: RouterOutletComponent,
@@ -56,11 +59,13 @@ const appRoutes: Routes = [
     CityComponent,
     CountryFormComponent,
     RouterOutletComponent,
+    CreateContinentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
   ],

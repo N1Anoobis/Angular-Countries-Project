@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ContinentService } from 'src/app/services/continents.service';
+import { ContinentI } from 'src/typings';
 
 @Component({
   selector: 'app-continent',
@@ -8,11 +11,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ContinentComponent implements OnInit {
   continent: { name: string };
-  constructor(private route: ActivatedRoute) {}
+  selectedContinent$: Observable<ContinentI> =
+    this.continentsService.selectedContinent$;
+
+  constructor(
+    private route: ActivatedRoute,
+    private continentsService: ContinentService
+  ) {}
 
   ngOnInit(): void {
     this.continent = {
       name: this.route.snapshot.params['id'],
     };
+    this.continentsService.setContinentId(this.continent.name);
   }
 }
