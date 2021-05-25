@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { ContinentsComponent } from './continents/continents.component';
 import { ContinentService } from './services/continents.service';
 import { ContinentComponent } from './continents/continent/continent.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavItemComponent } from './navigation/nav-item/nav-item.component';
 import { CountriesComponent } from './countries/countries.component';
@@ -16,11 +16,13 @@ import { EntityListItemComponent } from './shared/entity-list-item/entity-list-i
 import { CountryComponent } from './countries/country/country.component';
 import { CityComponent } from './cities/city/city.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateContinentComponent } from './create-continent/create-continent.component';
 
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
   { path: 'continent/:id', component: ContinentComponent },
+  { path: 'create/continent', component: CreateContinentComponent },
   {
     path: 'countries',
     component: CountriesComponent,
@@ -46,11 +48,13 @@ const appRoutes: Routes = [
     EntityListItemComponent,
     CountryComponent,
     CityComponent,
+    CreateContinentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule
   ],

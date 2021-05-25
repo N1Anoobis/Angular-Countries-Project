@@ -71,17 +71,8 @@ export class ContinentService {
     this.subject.next(callback(currentState));
   }
 
-  addContinent(name: string): void {
-    const newContinent = {
-      entity: 'continent',
-      id: name,
-      name: name,
-      area: 14200000,
-      population: 4400,
-      populationDensity: 0.00031,
-      minHeight: 2870,
-      maxHeight: 4892,
-    };
+  addContinent(newContinent: ContinentI): void {
+
     this.postContinents(newContinent);
     const callback: (state: ContinentsState) => ContinentsState = (state) => {
       return { ...state, continents: [...state.continents, newContinent] };
@@ -89,22 +80,22 @@ export class ContinentService {
     this.setState(callback);
   }
 
-  removeContinent(name: string) {
+  removeContinent(id: string) {
     const callback: (state: ContinentsState) => ContinentsState = (state) => {
       return {
         ...state,
         continents: [
-          ...state.continents.filter((continent) => continent.name !== name),
+          ...state.continents.filter((continent) => continent.id !== id),
         ],
       };
     };
     this.setState(callback);
-    this.deleteContinent(name);
+    this.deleteContinent(id);
   }
 
-  deleteContinent(name: string) {
+  deleteContinent(id: string) {
     this.http
-      .delete(`http://localhost:3000/continents/${name}`)
+      .delete(`http://localhost:3000/continents/${id}`)
       .subscribe(() => {});
   }
 

@@ -98,16 +98,6 @@
     },
     {
       "entity": "continent",
-      "id": "antarctica",
-      "name": "Antarctica",
-      "area": 14200000,
-      "population": 4400,
-      "populationDensity": 0.00031,
-      "minHeight": 2870,
-      "maxHeight": 4892
-    },
-    {
-      "entity": "continent",
       "id": "australia",
       "name": "Australia",
       "area": 7741220,
@@ -138,13 +128,23 @@
     },
     {
       "entity": "continent",
-      "id": "Atlantyda",
-      "name": "Atlantyda",
-      "area": 14200000,
-      "population": 4400,
-      "populationDensity": 0.00031,
-      "minHeight": 2870,
-      "maxHeight": 4892
+      "id": "Tue May 25 2021 15:35:43 GMT+0200 (Central European Summer Time)",
+      "name": "Mu",
+      "area": 4353,
+      "population": 345,
+      "populationDensity": 43453,
+      "minHeight": 43536,
+      "maxHeight": 435345
+    },
+    {
+      "entity": "continent",
+      "id": "Tue May 25 2021 15:40:50 GMT+0200 (Central European Summer Time)",
+      "name": "Antarctica",
+      "area": 5463463,
+      "population": 6765756,
+      "populationDensity": 56756765,
+      "minHeight": 657676567,
+      "maxHeight": 678678768
     }
   ]
 }

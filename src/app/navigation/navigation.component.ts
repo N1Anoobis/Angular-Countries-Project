@@ -14,6 +14,10 @@ export class NavigationComponent implements OnInit {
       path: ['/continents'],
     },
     {
+      name: 'CreateContinent',
+      path: ['create/continent'],
+    },
+    {
       name: 'Countries',
       path: ['/countries'],
     },
