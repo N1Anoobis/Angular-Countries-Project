@@ -1,0 +1,12 @@
+.container {
+  border: 2px solid black;
+  &__list {
+    border: 2px solid black;
+    max-height: 60px;
+    max-width: 120px;
+    overflow-y: scroll;
+  }
+  &__list--item {
+    background-color: olivedrab;
+  }
+}

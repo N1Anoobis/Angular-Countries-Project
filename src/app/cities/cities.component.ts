@@ -11,6 +11,10 @@ import { CitiesService } from '../services/cities.service';
 })
 export class CitiesComponent {
   cities$: Observable<CityI[]> = this.citiesService.cities$;
-
+  cities: CityI[];
   constructor(private citiesService: CitiesService) {}
+
+  ngOnInit() {
+    this.cities$.subscribe((res) => (this.cities = res));
+  }
 }
