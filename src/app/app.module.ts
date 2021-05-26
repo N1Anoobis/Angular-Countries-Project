@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CountryFormComponent } from './countries/country-form/country-form.component';
 import { RouterOutletComponent } from './shared/router-outlet/router-outlet.component';
 import { CreateContinentComponent } from './create-continent/create-continent.component';
+import { FilterPipe } from './filter.pipe';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
     CountryFormComponent,
     RouterOutletComponent,
     CreateContinentComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

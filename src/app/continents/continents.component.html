@@ -1,5 +1,7 @@
 <div *ngIf="continents$ | async as continents">
-  <div class="container" *ngFor="let continent of continents ">
+  <input type="text" [(ngModel)]="filtredStatus">
+  <hr>
+  <div class="container" *ngFor="let continent of continents | filter:filtredStatus:'name'">
     <div class="item-container">
       <div class="item" [routerLink]="['/continent', continent.name]">
         {{continent.name}}
@@ -8,6 +10,5 @@
     </div>
   </div>
 </div>
-<hr>
 <div>
 </div>
