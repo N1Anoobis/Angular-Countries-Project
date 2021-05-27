@@ -1,19 +1,28 @@
-<div class="coutry-container">
-  <ul *ngIf="selectedCountry$ | async as country">
-    <li>
-      name: {{country.name}}
+<div class="country-container">
+  <ul *ngIf="selectedCountry$ | async as country" class="country-list">
+    <li class="country-item">
+      <span class="item-name">Name:</span>
+      {{ country.name }}
     </li>
-    <li>
-      continent: {{country.continent}}
+    <li class="country-item">
+      <span class="item-name">Continent:</span>
+      {{ country.continent }}
     </li>
-    <li>
-      area: {{country.area}}
+    <li class="country-item">
+      <span class="item-name">Area:</span>
+      {{ country.area }}
     </li>
-    <li>
-      population: {{country.population}}
+    <li class="country-item">
+      <span class="item-name">Population:</span>
+      {{ country.population }}
     </li>
-    <li>
-      population density: {{country.populationDensity}}
+    <li class="country-item">
+      <span class="item-name">Population density:</span>
+      {{ country.populationDensity }}
     </li>
+    <div class="country-buttons">
+      <button (click)="onEdit(country.id)" class="edit">Edit</button>
+      <button (click)="onDelete(country.id)" class="delete">Delete</button>
+    </div>
   </ul>
 </div>

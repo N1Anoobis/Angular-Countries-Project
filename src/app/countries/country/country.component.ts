@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CountriesService } from 'src/app/services/countries.service';
 import { CountryI } from 'src/typings';
@@ -22,16 +22,26 @@ export class CountryComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private countriesService: CountriesService
+    private countriesService: CountriesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.paramsSubscription = this.route.params.subscribe((params) =>
-      this.countriesService.setCountryId(params['id'])
-    );
+    this.paramsSubscription = this.route.params.subscribe((params) => {
+      this.countriesService.setCountryId(params['id']);
+    });
   }
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
+  }
+
+  onDelete(id: string): void {
+    this.countriesService.deleteCountry(id);
+    this.router.navigate(['/countries']);
+  }
+
+  onEdit(id: string): void {
+    this.router.navigate([`/countries/edit/${id}`]);
   }
 }

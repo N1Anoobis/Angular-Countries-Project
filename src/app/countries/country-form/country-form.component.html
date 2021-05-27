@@ -1,1 +1,85 @@
-<p>country-form works!</p>
+<header>
+  <h3 class="form-header">Country form</h3>
+</header>
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="form"
+  autocomplete="off"
+>
+  <div class="form-control">
+    <label for="name" class="form-label">Name:</label>
+    <input type="text" id="name" formControlName="name" class="form-input" />
+    <span
+      *ngIf="!form.get('name').valid && form.get('name').touched"
+      class="error-msg"
+      >Please enter valid data</span
+    >
+  </div>
+
+  <div class="form-control">
+    <label for="continent" class="form-label">Continent:</label>
+    <input
+      type="text"
+      id="continent"
+      formControlName="continent"
+      class="form-input"
+    />
+    <span
+      *ngIf="!form.get('continent').valid && form.get('continent').touched"
+      class="error-msg"
+      >Please enter valid data</span
+    >
+  </div>
+
+  <div class="form-control">
+    <label for="area" class="form-label">Area:</label>
+    <input type="number" id="area" formControlName="area" class="form-input" />
+    <span
+      *ngIf="!form.get('area').valid && form.get('area').touched"
+      class="error-msg"
+      >Please enter valid data</span
+    >
+  </div>
+
+  <div class="form-control">
+    <label for="population" class="form-label">Population:</label>
+    <input
+      type="number"
+      id="population"
+      formControlName="population"
+      class="form-input"
+    />
+    <span
+      *ngIf="!form.get('population').valid && form.get('population').touched"
+      class="error-msg"
+      >Please enter valid data</span
+    >
+  </div>
+
+  <div class="form-control">
+    <label for="populationDensity" class="form-label"
+      >Population density:</label
+    >
+    <input
+      type="number"
+      id="populationDensity"
+      formControlName="populationDensity"
+      class="form-input"
+    />
+    <span
+      *ngIf="
+        !form.get('populationDensity').valid &&
+        form.get('populationDensity').touched
+      "
+      class="error-msg"
+      >Please enter valid data</span
+    >
+  </div>
+
+  <div class="form-control">
+    <button type="submit" class="form-button" [disabled]="!form.valid">
+      Save
+    </button>
+  </div>
+</form>

@@ -1,0 +1,36 @@
+.form-control {
+  padding: 5px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.form-input {
+  padding: 5px;
+  min-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.form-button {
+  margin-top: 10px;
+  padding: 5px 15px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(255, 232, 167);
+  }
+}
+
+.error-msg {
+  display: block;
+  font-size: 12px;
+  color: rgb(255, 83, 118);
+}
