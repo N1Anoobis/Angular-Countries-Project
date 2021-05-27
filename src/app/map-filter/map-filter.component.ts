@@ -1,23 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { CityI } from 'src/typings';
 
 @Component({
   selector: 'app-map-filter',
   templateUrl: './map-filter.component.html',
   styleUrls: ['./map-filter.component.scss'],
- 
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapFilterComponent implements OnInit {
   filtredvalue: number;
   showInput = false;
-  filtredCities: CityI[]
+  filtredCities: CityI[];
   chosenCity: CityI;
   @Input()
   public cities: CityI[];
   constructor() {}
 
   ngOnInit(): void {
-    this.filtredCities = [...this.cities]
+    this.filtredCities = [...this.cities];
   }
 
   showRangeInput(city) {
@@ -45,7 +45,7 @@ export class MapFilterComponent implements OnInit {
       dist = dist * 1.609344;
       dist = Math.floor(dist);
       if (dist < filtredvalue) {
-        this.filtredCities = [...this.filtredCities, city]
+        this.filtredCities = [...this.filtredCities, city];
       }
     }
   }
