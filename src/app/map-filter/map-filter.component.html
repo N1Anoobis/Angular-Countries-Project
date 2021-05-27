@@ -1,10 +1,12 @@
 <div class="container">
-  <input *ngIf="showInput" type="range" min="0" max="17000" step="100" [(ngModel)]="filtredvalue"
+  Pick your city and check distance to others
+  <input *ngIf="showInput" type="range" min="0" max="17000" step="100"  [(ngModel)]="filtredvalue"
     (click)="onChange($event)">
+    <p *ngIf="filtredvalue" >cities in distance less then {{filtredvalue}} from {{chosenCity.name}}</p>
   <div class="container__list">
     <div class="container__list-item" *ngFor="let city of cities">
       <button (click)="showRangeInput(city)">{{ city.name }}</button>
     </div>
   </div>
-  <app-map [cities]='cities' [filtredCities]="filtredCities"></app-map>
+  <app-map [cities]='cities' [filtredCities]='filtredCities'></app-map>
 </div>

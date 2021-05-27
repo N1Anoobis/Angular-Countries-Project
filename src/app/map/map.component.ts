@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import { CityI } from 'src/typings';
 
@@ -7,18 +7,21 @@ import { CityI } from 'src/typings';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent {
   private map: mapboxgl.Map;
   @Input()
   public cities: CityI[];
   @Input()
   filtredCities: CityI[];
+  markers = []
+  data =[]
+  container
   constructor() {}
 
-  ngOnInit(): void {
+ ngAfterViewInit()  {
     mapboxgl.accessToken =
       'pk.eyJ1IjoibjFhbm9vYmlzIiwiYSI6ImNrcDVhc3drcjA5MzMydnFlY3gyMnd1MGsifQ.iUkw2eL7dH1hAkC0LWG7bg';
-    this.map = new mapboxgl.Map({
+   this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [0, 20],
@@ -28,14 +31,18 @@ export class MapComponent implements OnInit {
   }
 
     ngOnChanges() {
+     this.data = this.filtredCities ? this.filtredCities : this.cities
+      this.markers.forEach((marker) => marker.remove());
+      this.markers = [];
       this.setMarkers();
    }
 
   setMarkers() {
-    this.cities.map((city) => {
-      new mapboxgl.Marker()
+   this.data.length > 0 && this.data.map((city) => {
+     let marker = new mapboxgl.Marker()
         .setLngLat([city.longitude, city.latitude])
         .addTo(this.map);
+        this.markers.push(marker)
     });
   }
 }
