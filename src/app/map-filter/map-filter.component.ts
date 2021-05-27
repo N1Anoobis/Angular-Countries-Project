@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { CityI } from 'src/typings';
 
 @Component({
@@ -16,9 +21,7 @@ export class MapFilterComponent implements OnInit {
   public cities: CityI[];
   constructor() {}
 
-  ngOnInit(): void {
-    this.filtredCities = [...this.cities];
-  }
+  ngOnInit(): void {}
 
   showRangeInput(city) {
     this.chosenCity = city;
@@ -30,7 +33,7 @@ export class MapFilterComponent implements OnInit {
   }
 
   calculateDistance(value: any, chosenCity, filtredvalue): any {
-    this.filtredCities.length = 0;
+    this.filtredCities = [];
     for (const city of value) {
       var radlat1 = (Math.PI * city.latitude) / 180;
       var radlat2 = (Math.PI * chosenCity['latitude']) / 180;

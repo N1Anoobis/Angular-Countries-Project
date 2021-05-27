@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import { CityI } from 'src/typings';
 
@@ -11,12 +18,12 @@ import { CityI } from 'src/typings';
 export class MapComponent {
   private map: mapboxgl.Map;
   @Input()
-  public cities: CityI[];
-  @Input()
   filtredCities: CityI[];
+  @Input()
+  chosenCity: CityI;
   markers = [];
   data = [];
-  container;
+  @Output() isReseted = new EventEmitter<boolean>();
   constructor() {}
 
   ngAfterViewInit() {
@@ -31,22 +38,45 @@ export class MapComponent {
     this.setMarkers();
   }
 
-  ngOnChanges() {
-    this.data = this.filtredCities ? this.filtredCities : this.cities;
+  ngOnChanges(changes: SimpleChanges) {
     this.markers.forEach((marker) => marker.remove());
     this.markers = [];
+    if (changes.chosenCity) {
+      this.markers.forEach((marker) => marker.remove());
+      this.markers = [];
+      this.setSingleCity();
+      if (changes.chosenCity.previousValue) {
+        if (
+          changes.chosenCity.previousValue !== changes.chosenCity.currentValue
+        ) {
+          this.filtredCities = [];
+          this.isReseted.emit(true);
+          this.setSingleCity();
+        }
+      }
+    }
     this.setMarkers();
+  }
+
+  setSingleCity() {
+    if (this.chosenCity !== undefined) {
+      let marker = new mapboxgl.Marker()
+        .setLngLat([this.chosenCity.longitude, this.chosenCity.latitude])
+        .addTo(this.map);
+      this.markers = [...this.markers, marker];
+    }
   }
 
   setMarkers() {
     if (this.map !== undefined) {
-      this.data.length > 0 &&
-        this.data.map((city) => {
+      if (this.filtredCities) {
+        this.filtredCities.map((city) => {
           let marker = new mapboxgl.Marker()
             .setLngLat([city.longitude, city.latitude])
             .addTo(this.map);
-          this.markers.push(marker);
+          this.markers = [...this.markers, marker];
         });
+      }
     }
   }
 }
