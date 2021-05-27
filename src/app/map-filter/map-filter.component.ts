@@ -8,7 +8,7 @@ import { CityI } from 'src/typings';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapFilterComponent implements OnInit {
-  filtredvalue: number;
+  filtredvalue: number = 0;
   showInput = false;
   filtredCities: CityI[];
   chosenCity: CityI;

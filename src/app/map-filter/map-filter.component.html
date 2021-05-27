@@ -1,6 +1,6 @@
 <div class="container">
   Pick your city and check distance to others
-  <input *ngIf="showInput" type="range" min="0" max="17000" step="100"  [(ngModel)]="filtredvalue"
+  <input *ngIf="showInput" type="range" min="0" max="17000" step="100" [value]="filtredvalue" [(ngModel)]="filtredvalue"
     (click)="onChange($event)">
     <p *ngIf="filtredvalue" >cities in distance less then {{filtredvalue}} from {{chosenCity.name}}</p>
   <div class="container__list">
