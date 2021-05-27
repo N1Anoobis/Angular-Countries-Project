@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  &__list {
+    border: 2px solid black;
+    max-height: 80px;
+    max-width: 220px;
+    overflow-y: scroll;
+  }
+  &__list--item {
+    background-color: olivedrab;
+  }
+  input[type="range"] {
+    width:100%;
+  }
+}

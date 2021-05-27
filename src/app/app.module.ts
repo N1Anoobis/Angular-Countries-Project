@@ -20,6 +20,9 @@ import { CountryFormComponent } from './countries/country-form/country-form.comp
 import { RouterOutletComponent } from './shared/router-outlet/router-outlet.component';
 import { CreateContinentComponent } from './create-continent/create-continent.component';
 import { InputComponent } from './shared/form/input/input.component';
+import { FilterPipe } from './filter.pipe';
+import { MapComponent } from './map/map.component';
+import { MapFilterComponent } from './map-filter/map-filter.component';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
@@ -63,6 +66,9 @@ const appRoutes: Routes = [
     RouterOutletComponent,
     CreateContinentComponent,
     InputComponent,
+    FilterPipe,
+    MapComponent,
+    MapFilterComponent,
   ],
   imports: [
     BrowserModule,
