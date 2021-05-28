@@ -3,6 +3,7 @@
     class="nav-link"
     [routerLink]="navigationData.path"
     routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
   >
     {{ navigationData.name }}
   </a>
