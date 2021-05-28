@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  &__item {
+    margin: 10px;
+    margin-left: auto;
+  }
+  input.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+}

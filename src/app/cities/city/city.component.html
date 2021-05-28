@@ -1,1 +1,13 @@
-<p>city works!</p>
+<div>
+  <ul *ngIf="selected$ | async as city">
+    <li> name: {{city.name}}</li>
+    <li>population: {{city.population}}</li>
+    <li>area: {{ city.area }}</li>
+    <li>population density: {{ city.populationDensity }}</li>
+    <app-map [chosenCity]="city"></app-map>
+    <button (click)="onEdit(city.id)">
+      edit
+    </button>
+  </ul>
+
+</div>

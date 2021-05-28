@@ -25,6 +25,10 @@ export class NavigationComponent implements OnInit {
       name: 'Cities',
       path: ['/cities'],
     },
+    {
+      name: 'CreateCity',
+      path: ['cities/create'],
+    },
   ];
 
   constructor() {}

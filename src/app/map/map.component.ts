@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
-import { CityI } from 'src/typings';
+import { CityI, Coordinates } from 'src/typings';
 
 @Component({
   selector: 'app-map',
@@ -18,12 +18,14 @@ import { CityI } from 'src/typings';
 export class MapComponent {
   private map: mapboxgl.Map;
   @Input()
+  isPickable = false;
+  @Input()
   filtredCities: CityI[];
   @Input()
   chosenCity: CityI;
   markers = [];
-  data = [];
   @Output() isReseted = new EventEmitter<boolean>();
+  @Output() pickedCoords = new EventEmitter<Coordinates>();
   constructor() {}
 
   ngAfterViewInit() {
@@ -35,6 +37,12 @@ export class MapComponent {
       center: [0, 20],
       zoom: 1,
     });
+    if (this.isPickable) {
+      this.handlePicked(this.map, this.markers, this.pickedCoords);
+    }
+    if (this.chosenCity) {
+      this.setSingleCity(this.map, this.markers);
+    }
     this.setMarkers();
   }
 
@@ -57,13 +65,27 @@ export class MapComponent {
     }
     this.setMarkers();
   }
-
-  setSingleCity() {
-    if (this.chosenCity !== undefined) {
+  handlePicked(map, markers, pickedCoords) {
+    this.map.on('click', function (e) {
+      // e.lngLat is the longitude, latitude geographical position of the event
+      markers.forEach((marker) => marker.remove());
+      markers = [];
       let marker = new mapboxgl.Marker()
-        .setLngLat([this.chosenCity.longitude, this.chosenCity.latitude])
-        .addTo(this.map);
-      this.markers = [...this.markers, marker];
+        .setLngLat([e.lngLat.lng, e.lngLat.lat])
+        .addTo(map);
+      markers = [...markers, marker];
+      pickedCoords.emit([e.lngLat.lng, e.lngLat.lat]);
+    });
+  }
+
+  setSingleCity(map?, markers?) {
+    if (this.chosenCity !== undefined) {
+      if (map || this.map) {
+        let marker = new mapboxgl.Marker()
+          .setLngLat([this.chosenCity.longitude, this.chosenCity.latitude])
+          .addTo(map ? map : this.map);
+        markers ? markers : (this.markers = [...this.markers, marker]);
+      }
     }
   }
 

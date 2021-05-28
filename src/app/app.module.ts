@@ -23,6 +23,7 @@ import { InputComponent } from './shared/form/input/input.component';
 import { FilterPipe } from './filter.pipe';
 import { MapComponent } from './map/map.component';
 import { MapFilterComponent } from './map-filter/map-filter.component';
+import { CityFormComponent } from './city-form/city-form.component';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
@@ -44,6 +45,8 @@ const appRoutes: Routes = [
     component: RouterOutletComponent,
     children: [
       { path: '', component: CitiesComponent },
+      { path: 'create', component: CityFormComponent },
+      { path: 'edit/:id', component: CityFormComponent },
       { path: ':id', component: CityComponent },
     ],
   },
@@ -69,6 +72,7 @@ const appRoutes: Routes = [
     FilterPipe,
     MapComponent,
     MapFilterComponent,
+    CityFormComponent,
   ],
   imports: [
     BrowserModule,
