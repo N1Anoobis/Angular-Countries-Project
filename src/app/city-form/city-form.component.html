@@ -1,0 +1,37 @@
+<form [formGroup]="cityForm" (ngSubmit)="onSubmit">
+  <ul class="form">
+    <li class="form__item" *ngIf="countries$ | async as countries">
+      <label for="countryId">Country: </label>
+      <div *ngIf="isEditing">{{savedValue.countryId}}</div>
+      <select formControlName="countryId" id="countryId" value="country.countryId">
+        <option value="">Select country...</option>
+        <option *ngFor="let country of countries">{{country.name}}</option>
+      </select>
+    </li>
+    <li class="form__item">
+      <label for="name">Name: </label>
+      <input id="name" formControlName="name" type="text">
+    </li>
+    <li class="form__item">
+      <label for="area">Area: </label>
+      <input id="area" formControlName="area" type="number">
+    </li>
+    <li class="form__item">
+      <label for="population">Population: </label>
+      <input id="population" formControlName="population" type="number">
+    </li>
+    <li class="form__item">
+      <label for="populationDensity">populationDensity: </label>
+      <input id="populationDensity" formControlName="populationDensity" type="number">
+    </li>
+    <li class="form__item">
+      <label for="isCapital">isCapital: </label>
+      <input id="isCapital" formControlName="isCapital" type="checkbox">
+    </li>
+    <li class="form__item">
+      <label>geoCoords: </label>
+      <app-map isPickable="true" [chosenCity]="savedValue" (pickedCoords)="getCoords($event)"></app-map>
+    </li>
+    <button [disabled]="cityForm.invalid" (click)="onSubmit()">Save</button>
+  </ul>
+</form>
