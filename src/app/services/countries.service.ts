@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CountryI } from '../../typings';
 import { distinctUntilChanged, map } from 'rxjs/operators';
+import { ContinentService } from './continents.service';
 
 export interface CountriesState {
   isLoading: boolean;
@@ -39,11 +40,26 @@ export class CountriesService {
     map((state) => state.countryId, distinctUntilChanged())
   );
 
-  public readonly selectedCountry$: Observable<CountryI> = this.state$.pipe(
-    map(({ countries, countryId }) =>
-      countries.find((country) => country.id === countryId)
-    ),
-    distinctUntilChanged()
+  // public readonly selectedCountry$: Observable<CountryI> = this.state$.pipe(
+  //   map(({ countries, countryId }) =>
+  //     countries.find((country) => country.id === countryId)
+  //   ),
+  //   distinctUntilChanged()
+  // );
+
+  public readonly selectedCountry$: Observable<CountryI> = combineLatest([
+    this.state$,
+    this.continentsService.continents$,
+  ]).pipe(
+    map(([state, continents]) => {
+      const country = state.countries.find(
+        (country) => country.id === state.countryId
+      );
+      const continentName = continents.find(
+        (continent) => continent.id === country.continent
+      )?.name;
+      return { ...country, continent: continentName };
+    }, distinctUntilChanged())
   );
 
   public get selectedCountry(): CountryI {
@@ -53,7 +69,10 @@ export class CountriesService {
       .countries.find((country) => country.id === countryId);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private continentsService: ContinentService
+  ) {}
 
   setState(callback: Callback): void {
     const currentState = this.subject.getValue();
@@ -68,19 +87,15 @@ export class CountriesService {
   }
 
   loadCountries(): void {
-    const request$ = this.http.request(
-      'get',
+    const request$ = this.http.get<CountryI[]>(
       'http://localhost:3000/countries'
     );
     request$.subscribe(
-      (load) => {
-        const currentState = this.subject.getValue();
-        this.subject.next({
-          isLoading: false,
-          countries: load,
-          countryId: currentState.countryId,
-          error: '',
-        } as CountriesState);
+      (response) => {
+        const callback: Callback = (state) => {
+          return { ...state, countries: response };
+        };
+        this.setState(callback);
       },
       (error) => {
         console.log(error);

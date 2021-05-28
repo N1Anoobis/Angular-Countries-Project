@@ -44,6 +44,19 @@ export class ContinentService {
     distinctUntilChanged()
   );
 
+  public readonly continentsList$: Observable<{ name: string; id: string }[]> =
+    this.state$.pipe(
+      map(({ continents }) =>
+        continents.map((continent) => {
+          return {
+            name: continent.name,
+            id: continent.id,
+          };
+        })
+      ),
+      distinctUntilChanged()
+    );
+
   constructor(private http: HttpClient) {}
 
   setState(callback: (state: ContinentsState) => ContinentsState): void {

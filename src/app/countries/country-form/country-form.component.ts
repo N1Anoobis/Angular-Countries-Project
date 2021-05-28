@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { ContinentService } from 'src/app/services/continents.service';
 import { CountriesService } from 'src/app/services/countries.service';
 import { CountryI } from 'src/typings';
 
@@ -15,9 +16,12 @@ export class CountryFormComponent implements OnInit {
   form: FormGroup;
   paramsSubscription: Subscription;
   countryIsEdited = false;
+  continentsList$: Observable<{ name: string; id: string }[]> =
+    this.continentsService.continentsList$;
 
   constructor(
     private countriesService: CountriesService,
+    private continentsService: ContinentService,
     private router: Router,
     private route: ActivatedRoute
   ) {}

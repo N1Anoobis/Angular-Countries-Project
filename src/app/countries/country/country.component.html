@@ -10,15 +10,15 @@
     </li>
     <li class="country-item">
       <span class="item-name">Area:</span>
-      {{ country.area }}
+      {{ country.area }} square km
     </li>
     <li class="country-item">
       <span class="item-name">Population:</span>
-      {{ country.population }}
+      {{ country.population | population }}
     </li>
     <li class="country-item">
       <span class="item-name">Population density:</span>
-      {{ country.populationDensity }}
+      {{ country.populationDensity }} people per square km
     </li>
     <div class="country-buttons">
       <button (click)="onEdit(country.id)" class="edit">Edit</button>
