@@ -1,12 +1,22 @@
 <div class="container">
-  <h6>Pick your city and check distance to others</h6>
-  <input *ngIf="showInput" type="range" min="0" max="17000" step="100" [value]="filtredvalue" [(ngModel)]="filtredvalue"
-    (click)="onChange($event)">
-  <h3 *ngIf="filtredvalue">cities in distance less then {{filtredvalue}} km from {{chosenCity.name}}</h3>
-  <div class="container__list">
-    <div class="container__list-item" *ngFor="let city of cities">
-      <button (click)="showRangeInput(city)">{{ city.name }}</button>
+  <button (click)="changeMode()">ChangeFilter</button>
+  <div *ngIf="isDeafultFilter">
+    <h6>Pick your city and check distance to others</h6>
+    <input *ngIf="showInput" type="range" min="0" max="17000" step="100" [value]="filtredvalue"
+      [(ngModel)]="filtredvalue" (click)="onChange($event)">
+    <h3 *ngIf="filtredvalue">cities in distance less then {{filtredvalue}} km from {{chosenCity.name}}</h3>
+    <div class="container__list">
+      <div class="container__list-item" *ngFor="let city of cities">
+        <button (click)="showRangeInput(city)">{{ city.name }}</button>
+      </div>
     </div>
   </div>
-  <app-map (isReseted)="filtredvalue = 0" [filtredCities]='filtredCities' [chosenCity]="chosenCity"></app-map>
+
+  <div *ngIf="!isDeafultFilter">
+    <h6>Pick continent to see all cities located on it</h6>
+    <app-dropdown [options]="options" (change)="onChangeSelected($event.target.value)"></app-dropdown>
+  </div>
+
+  <app-map (isReseted)="filtredvalue = 0" [filtredCities]='filtredCities' [chosenCity]="chosenCity">
+  </app-map>
 </div>

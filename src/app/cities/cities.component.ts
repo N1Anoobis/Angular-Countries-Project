@@ -1,7 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CityI } from 'src/typings';
+import { CityI, ContinentI, CountryI } from 'src/typings';
 import { CitiesService } from '../services/cities.service';
+import { ContinentService } from '../services/continents.service';
+import { CountriesService } from '../services/countries.service';
 
 @Component({
   selector: 'app-cities',
@@ -11,6 +13,7 @@ import { CitiesService } from '../services/cities.service';
 })
 export class CitiesComponent {
   cities$: Observable<CityI[]> = this.citiesService.cities$;
+
   cities: CityI[];
   constructor(private citiesService: CitiesService) {}
 

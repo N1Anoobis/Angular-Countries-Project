@@ -4,7 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { CityI } from 'src/typings';
+import { Observable } from 'rxjs';
+import { CityI, ContinentI, CountryI } from 'src/typings';
+import { ContinentService } from '../services/continents.service';
+import { CountriesService } from '../services/countries.service';
 
 @Component({
   selector: 'app-map-filter',
@@ -15,17 +18,47 @@ import { CityI } from 'src/typings';
 export class MapFilterComponent implements OnInit {
   filtredvalue: number = 0;
   showInput = false;
-  filtredCities: CityI[];
+  filtredCities: CountryI[] | CityI[] | ContinentI[];
   chosenCity: CityI;
+  options;
+  dropdownValue;
+  isDeafultFilter = true;
+
+  preFiltredCities: CountryI[] | CityI[] | ContinentI[];
   @Input()
   public cities: CityI[];
-  constructor() {}
+  continent$: Observable<ContinentI[]> = this.continentService.continents$;
+  citiesInContinent$: Observable<CountryI[] | CityI[] | ContinentI[]> =
+    this.countriesService.citiesInContinent$;
+  constructor(
+    private continentService: ContinentService,
+    private countriesService: CountriesService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.continentService.continentsList$.subscribe(
+      (res) => (this.options = res.map((res) => res.name))
+    );
+  }
 
   showRangeInput(city) {
     this.chosenCity = city;
     this.showInput = true;
+  }
+
+  changeMode() {
+    this.isDeafultFilter = !this.isDeafultFilter;
+    this.filtredCities = [];
+  }
+
+  onChangeSelected(id) {
+    let continentId;
+    this.continentService.continentsList$.subscribe(
+      (res) => (continentId = res.find((res) => res.name === id))
+    );
+    this.continentService.setContinentId(continentId.id);
+    this.citiesInContinent$.subscribe((res) => (this.preFiltredCities = res));
+    this.filtredCities = this.preFiltredCities;
   }
 
   onChange() {

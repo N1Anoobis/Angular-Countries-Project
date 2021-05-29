@@ -7,5 +7,6 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownComponent {
-@Input() options: string[];
+  @Input() options: string[];
+  onChangeSelected = (val: any): void => {val};
 }

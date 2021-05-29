@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { CityI } from 'src/typings';
+import { CityI, CountryI } from 'src/typings';
+import { ContinentService } from './continents.service';
 
 export interface CitiesState {
   isLoading: boolean;
@@ -38,7 +39,23 @@ export class CitiesService {
     distinctUntilChanged()
   );
 
-  constructor(private http: HttpClient) {}
+  // public readonly countrysInContinent$: Observable<CountryI> = combineLatest([
+  //   this.state$,
+  //   this.continentsService.continents$,
+  // ]).pipe(
+  //   map(([state, continents]) => {
+  //     const country = state.cities.filter(
+  //       (country) => country.continent === state.countryId
+  //     );
+  //     const continentName = continents.find(
+  //       (continent) => continent.id === country.continent
+  //     )?.name;
+  //     return { ...country, continent: continentName };
+  //   }, distinctUntilChanged())
+  // );
+
+  constructor(private http: HttpClient,
+    private continentsService:ContinentService) {}
 
   loadCities(): void {
     const request = this.http.request('get', 'http://localhost:3000/cities');
@@ -95,6 +112,26 @@ export class CitiesService {
   putCity(data: CityI) {
     this.http
       .put(`http://localhost:3000/cities/${data.id}`, data)
+      .subscribe(() => {});
+  }
+
+  removeCity(id: string) {
+    const callback: (state: CitiesState) => CitiesState = (state) => {
+      return {
+        ...state,
+        cities: [
+          ...state.cities.filter((city) => city.id !== id),
+        ],
+      };
+    };
+    this.setState(callback);
+    this.deleteCity(id);
+  }
+
+  deleteCity(id: string) {
+    console.log(id)
+    this.http
+      .delete(`http://localhost:3000/cities/${id}`)
       .subscribe(() => {});
   }
 }
