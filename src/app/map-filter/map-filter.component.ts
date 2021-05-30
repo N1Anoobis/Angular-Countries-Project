@@ -49,6 +49,8 @@ export class MapFilterComponent implements OnInit {
   changeMode() {
     this.isDeafultFilter = !this.isDeafultFilter;
     this.filtredCities = [];
+    this.filtredvalue = 0;
+    this.showInput = false;
   }
 
   onChangeSelected(id) {
