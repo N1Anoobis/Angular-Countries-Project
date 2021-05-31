@@ -33,6 +33,13 @@ export class ContinentService {
     distinctUntilChanged()
   );
 
+  public readonly continentId$: Observable<any> = this.state$.pipe(
+    map((state) => {
+      return state.continentId;
+    }),
+    distinctUntilChanged()
+  );
+
   public readonly countryId$: Observable<string> = this.state$.pipe(
     map((state) => state.continentId, distinctUntilChanged())
   );
@@ -56,6 +63,8 @@ export class ContinentService {
       ),
       distinctUntilChanged()
     );
+
+  // continentId$: any;
 
   constructor(private http: HttpClient) {}
 

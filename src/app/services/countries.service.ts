@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { CountryI } from '../../typings';
+import { CityI, ContinentI, CountryI } from '../../typings';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { ContinentService } from './continents.service';
+import { CitiesService } from './cities.service';
+import { CityComponent } from '../cities/city/city.component';
 
 export interface CountriesState {
   isLoading: boolean;
@@ -74,10 +76,33 @@ export class CountriesService {
   //     .getValue()
   //     .countries.find((country) => country.id === countryId);
   // }
+  public readonly citiesInContinent$: Observable<
+    CountryI[] | CityI[] | ContinentI[]
+  > = combineLatest([
+    this.state$,
+    this.continentsService.continentId$,
+    this.citiesService.cities$,
+  ]).pipe(
+    map(([state, continents, cities]) => {
+      const countriesResult = state.countries.filter(
+        (country) => country.continent === continents
+      );
+      let result = [];
+      for (const city of cities) {
+        for (const country of countriesResult) {
+          if (country.name === city.countryId) {
+            result = [...result, city];
+          }
+        }
+      }
+      return result;
+    }, distinctUntilChanged())
+  );
 
   constructor(
     private http: HttpClient,
-    private continentsService: ContinentService
+    private continentsService: ContinentService,
+    private citiesService: CitiesService
   ) {}
 
   setState(callback: Callback): void {

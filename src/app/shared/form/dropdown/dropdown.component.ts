@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownComponent {
-@Input() options: string[];
+@Input() options: {id: string, name: string};
 @Input() initialValue: string;
 @Output() onChange = new EventEmitter<string>();
 

@@ -1,4 +1,10 @@
-<select name="dropdown" id="dropdown" #select (change)="handleChange(select.value)" class="form-select">
+<select
+  name="dropdown"
+  id="dropdown"
+  #select
+  (change)="handleChange(select.value)"
+  class="form-select"
+>
   <option value=""></option>
   <option
     *ngFor="let option of options"

@@ -218,7 +218,7 @@
     {
       "entity": "country",
       "id": "poland",
-      "name": "Cebulandia",
+      "name": "Poland",
       "continent": "europe",
       "area": 652230,
       "population": 30419928,
@@ -236,11 +236,92 @@
     {
       "entity": "country",
       "id": "69x0Zbv",
-      "name": "pl",
+      "name": "poland",
       "continent": "europe",
       "area": 2333030303,
       "population": 23923902390,
       "populationDensity": 3039239
+    },
+    {
+      "entity": "country",
+      "id": "X_CQqBQ",
+      "name": "Brazil",
+      "continent": "south-america",
+      "area": 123123,
+      "population": 12312312,
+      "populationDensity": 312312
+    },
+    {
+      "entity": "country",
+      "id": "GMVfiGy",
+      "name": "Colombia",
+      "continent": "south-america",
+      "area": 345345,
+      "population": 345435,
+      "populationDensity": 345345
+    },
+    {
+      "entity": "country",
+      "id": "tcdRXJb",
+      "name": "Thailand",
+      "continent": "asia",
+      "area": 23324,
+      "population": 234324,
+      "populationDensity": 234234
+    },
+    {
+      "entity": "country",
+      "id": "5DejAfn",
+      "name": "Mexico",
+      "continent": "north-america",
+      "area": 32434,
+      "population": 32423423,
+      "populationDensity": 4234
+    },
+    {
+      "entity": "country",
+      "id": "ox3h4t0",
+      "name": "Philippines",
+      "continent": "asia",
+      "area": 435345,
+      "population": 345345,
+      "populationDensity": 5345345
+    },
+    {
+      "entity": "country",
+      "id": "_P6kEB9",
+      "name": "Netherlands",
+      "continent": "europe",
+      "area": 5345435,
+      "population": 43534534,
+      "populationDensity": 5345345345
+    },
+    {
+      "entity": "country",
+      "id": "FFtPnrk",
+      "name": "Mozambique",
+      "continent": "africa",
+      "area": 35435,
+      "population": 43543534,
+      "populationDensity": 43534534
+    },
+    {
+      "entity": "country",
+      "id": "74O9KzH",
+      "name": "Ecuador",
+      "continent": "south-america",
+      "area": 324324,
+      "population": 234234,
+      "populationDensity": 234234
+    },
+    {
+      "entity": "country",
+      "id": "ohuePHn",
+      "name": "new country",
+      "continent": "south-america",
+      "area": 7,
+      "population": 777,
+      "populationDensity": 7
     }
   ],
   "continents": [
