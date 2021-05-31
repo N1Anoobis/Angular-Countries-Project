@@ -19,16 +19,13 @@
 
   <div class="form-control">
     <label for="continent" class="form-label">Continent:</label>
-    <select
+    <app-dropdown
+      [options]="continentsList$ | async"
+      [initialValue]="form.get('continent').value"
+      (onChange)="handleChange($event, 'continent')"
       id="continent"
-      formControlName="continent"
-      class="form-input select"
     >
-      <option value=""></option>
-      <option *ngFor="let option of continentsList$ | async" [value]="option.id">
-        {{ option.name }}
-      </option>
-    </select>
+    </app-dropdown>
     <span
       *ngIf="!form.get('continent').valid && form.get('continent').touched"
       class="error-msg"

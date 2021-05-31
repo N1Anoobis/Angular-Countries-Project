@@ -1,5 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { ContinentService } from 'src/app/services/continents.service';
@@ -12,12 +22,13 @@ import { CountryI } from 'src/typings';
   styleUrls: ['./country-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CountryFormComponent implements OnInit {
+export class CountryFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   paramsSubscription: Subscription;
   countryIsEdited = false;
   continentsList$: Observable<{ name: string; id: string }[]> =
     this.continentsService.continentsList$;
+  selectedCountrySub: Subscription;
 
   constructor(
     private countriesService: CountriesService,
@@ -41,11 +52,23 @@ export class CountryFormComponent implements OnInit {
       if (params['id']) {
         this.countryIsEdited = true;
         this.countriesService.setCountryId(params['id']);
-        const editedCountryData = this.countriesService.selectedCountry;
-
-        this.setFormValues(editedCountryData);
+      } else {
+        this.countriesService.setCountryId(null);
       }
     });
+
+    this.selectedCountrySub = this.countriesService.selectedCountry$.subscribe(
+      (data) => {
+        if (data) {
+          this.setFormValues(data);
+        }
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.paramsSubscription.unsubscribe();
+    this.selectedCountrySub.unsubscribe();
   }
 
   setFormValues(country: CountryI): void {
@@ -61,6 +84,8 @@ export class CountryFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.form.value);
+
     if (this.countryIsEdited) {
       this.countriesService.putCountry(this.form.value);
     } else {
@@ -68,5 +93,21 @@ export class CountryFormComponent implements OnInit {
     }
 
     this.router.navigate(['/countries']);
+  }
+
+  getFormControl(controlName: string): AbstractControl {
+    return this.form.get(controlName);
+  }
+
+  setValue(value: string, formControl: AbstractControl): void {
+    if (formControl) {
+      formControl.setValue(value);
+      formControl.markAsTouched();
+    }
+  }
+
+  handleChange(value: string, formControlName: string): void {
+    const formControl = this.getFormControl(formControlName);
+    this.setValue(value, formControl);
   }
 }

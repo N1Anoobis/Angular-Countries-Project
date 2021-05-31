@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-dropdown',
@@ -8,4 +9,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 })
 export class DropdownComponent {
 @Input() options: string[];
+@Input() initialValue: string;
+@Output() onChange = new EventEmitter<string>();
+
+handleChange(value: string): void {
+  this.onChange.emit(value)
+}
 }

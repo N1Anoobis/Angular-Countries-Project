@@ -55,19 +55,25 @@ export class CountriesService {
       const country = state.countries.find(
         (country) => country.id === state.countryId
       );
+
+      if (!country) return null;
+
       const continentName = continents.find(
         (continent) => continent.id === country.continent
       )?.name;
+
+      if (!continentName) return null;
+
       return { ...country, continent: continentName };
     }, distinctUntilChanged())
   );
 
-  public get selectedCountry(): CountryI {
-    const countryId: string = this.subject.getValue().countryId;
-    return this.subject
-      .getValue()
-      .countries.find((country) => country.id === countryId);
-  }
+  // public get selectedCountry(): CountryI {
+  //   const countryId: string = this.subject.getValue().countryId;
+  //   return this.subject
+  //     .getValue()
+  //     .countries.find((country) => country.id === countryId);
+  // }
 
   constructor(
     private http: HttpClient,
