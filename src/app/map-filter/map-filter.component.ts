@@ -54,6 +54,7 @@ export class MapFilterComponent implements OnInit {
   }
 
   onChangeSelected(id) {
+   if(!id) return
     let continentId;
     this.continentService.continentsList$.subscribe(
       (res) => (continentId = res.find((res) => res.name === id))
