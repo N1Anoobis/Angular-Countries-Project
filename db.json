@@ -1,5 +1,6 @@
 {
-  "cities": [{
+  "cities": [
+    {
       "entity": "city",
       "id": "cartagena",
       "name": "Cartagena",
@@ -168,7 +169,8 @@
       "latitude": 1.6221778131720015
     }
   ],
-  "countries": [{
+  "countries": [
+    {
       "entity": "country",
       "id": "afganistan",
       "name": "Afganistan",
@@ -322,7 +324,8 @@
       "populationDensity": 7
     }
   ],
-  "continents": [{
+  "continents": [
+    {
       "entity": "continent",
       "id": "europe",
       "name": "Europe",

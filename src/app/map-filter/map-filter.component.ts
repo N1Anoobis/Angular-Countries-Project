@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { CityI, ContinentI, CountryI } from 'src/typings';
 import { ContinentService } from '../services/continents.service';
-import { CountriesService } from '../services/countries.service';
+import { MapFilterService } from '../services/map-filter.service';
 
 @Component({
   selector: 'app-map-filter',
@@ -29,10 +29,10 @@ export class MapFilterComponent implements OnInit {
   public cities: CityI[];
   continent$: Observable<ContinentI[]> = this.continentService.continents$;
   citiesInContinent$: Observable<CountryI[] | CityI[] | ContinentI[]> =
-    this.countriesService.citiesInContinent$;
+    this.mapFilterService.citiesInContinent$;
   constructor(
     private continentService: ContinentService,
-    private countriesService: CountriesService
+    private mapFilterService: MapFilterService
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class MapFilterComponent implements OnInit {
   }
 
   onChangeSelected(id) {
-   if(!id) return
+    if (!id) return;
     let continentId;
     this.continentService.continentsList$.subscribe(
       (res) => (continentId = res.find((res) => res.name === id))
