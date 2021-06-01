@@ -26,6 +26,7 @@ import { MapFilterComponent } from './map-filter/map-filter.component';
 import { PopulationPipe } from './shared/population.pipe';
 import { DropdownComponent } from './shared/form/dropdown/dropdown.component';
 import { CityFormComponent } from './city-form/city-form.component';
+import { ModalComponent } from './shared/modal/modal.component';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
@@ -77,6 +78,7 @@ const appRoutes: Routes = [
     PopulationPipe,
     DropdownComponent,
     CityFormComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
