@@ -8,9 +8,7 @@
     max-height: 80px;
     max-width: 220px;
     overflow-y: scroll;
-  }
-  &__list--item {
-    background-color: olivedrab;
+    margin: auto;
   }
   input[type="range"] {
     min-width: 60vw;

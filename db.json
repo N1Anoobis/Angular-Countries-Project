@@ -414,16 +414,6 @@
       "populationDensity": 22222222222222,
       "minHeight": 333333333332,
       "maxHeight": 2222222222222
-    },
-    {
-      "entity": "continent",
-      "id": "Thu May 27 2021 19:13:36 GMT+0200 (czas środkowoeuropejski letni)",
-      "name": "Europa 2",
-      "area": 9,
-      "population": 9,
-      "populationDensity": 99,
-      "minHeight": 9,
-      "maxHeight": 9
     }
   ]
 }

@@ -11,12 +11,13 @@
       </div>
     </div>
   </div>
-
   <div *ngIf="!isDeafultFilter">
     <h6>Pick continent to see all cities located on it</h6>
-    <app-dropdown [options]="options" (change)="onChangeSelected($event.target.value)"></app-dropdown>
+    <select (change)="onChangeSelected($event.target.value)">
+      <option value="">Select continent...</option>
+      <option *ngFor="let option of options">{{option}}</option>
+    </select>
   </div>
-
   <app-map (isReseted)="filtredvalue = 0" [filtredCities]='filtredCities' [chosenCity]="chosenCity">
   </app-map>
 </div>

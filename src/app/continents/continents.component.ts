@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ContinentI } from 'src/typings';
 import { ContinentService } from '../services/continents.service';
+import { ModalService, ModalState } from '../services/modal.service';
 
 @Component({
   selector: 'app-continents',
@@ -9,12 +10,17 @@ import { ContinentService } from '../services/continents.service';
   styleUrls: ['./continents.component.scss'],
 })
 export class ContinentsComponent implements OnInit {
+  confirmDeleteion;
   continents$: Observable<ContinentI[]> = this.continentsService.continents$;
-  constructor(private continentsService: ContinentService) {}
+  modalState$: Observable<ModalState> = this.modalService.state$;
+  constructor(
+    private continentsService: ContinentService,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {}
 
-  remove(id: string) {
-    this.continentsService.removeContinent(id);
+  remove(id) {
+    this.modalService.open(id);
   }
 }
