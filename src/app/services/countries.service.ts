@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CityI, ContinentI, CountryI } from '../../typings';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { ContinentService } from './continents.service';
 import { CitiesService } from './cities.service';
 import { CityComponent } from '../cities/city/city.component';
@@ -53,19 +53,24 @@ export class CountriesService {
     this.state$,
     this.continentsService.continents$,
   ]).pipe(
+    filter(
+      ([state, continents]) => {
+         if (!state.countries) return false;
+         if (!continents) return false;
+         return true;
+      }
+    ),
     map(([state, continents]) => {
       const country = state.countries.find(
         (country) => country.id === state.countryId
       );
-
-      if (!country) return null;
+      if(!country) return null;
 
       const continentName = continents.find(
         (continent) => continent.id === country.continent
       )?.name;
 
-      if (!continentName) return null;
-
+      if(!continentName) return null;
       return { ...country, continent: continentName };
     }, distinctUntilChanged())
   );
