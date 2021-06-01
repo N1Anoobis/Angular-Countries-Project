@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { CityI, ContinentI, CountryI } from '../../typings';
-import { distinctUntilChanged, map, filter } from 'rxjs/operators';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
+import { CountryI } from '../../typings';
+import { distinctUntilChanged, map, filter, tap, delay } from 'rxjs/operators';
 import { ContinentService } from './continents.service';
-import { CitiesService } from './cities.service';
-import { CityComponent } from '../cities/city/city.component';
 
 export interface CountriesState {
   isLoading: boolean;
   countries: CountryI[];
   countryId: string;
   error: string;
+  searchText: string;
 }
 
 type Callback = (state: CountriesState) => CountriesState;
@@ -21,6 +20,7 @@ const initialState: CountriesState = {
   countries: [],
   countryId: '',
   error: '',
+  searchText: '',
 };
 
 @Injectable({ providedIn: 'root' })
@@ -34,6 +34,16 @@ export class CountriesService {
   public readonly countries$: Observable<CountryI[]> = this.state$.pipe(
     map((state) => {
       return state.countries;
+    }),
+    distinctUntilChanged()
+  );
+
+  public readonly filteredCountries$: Observable<CountryI[]> = this.state$.pipe(
+    map(({ countries, searchText }) => {
+      if(searchText === '') return countries;
+      return countries.filter((country) =>
+        country.name.toLowerCase().includes(searchText.toLowerCase())
+      );
     }),
     distinctUntilChanged()
   );
@@ -53,39 +63,29 @@ export class CountriesService {
     this.state$,
     this.continentsService.continents$,
   ]).pipe(
-    filter(
-      ([state, continents]) => {
-         if (!state.countries) return false;
-         if (!continents) return false;
-         return true;
-      }
-    ),
+    filter(([state, continents]) => {
+      if (!state.countries) return false;
+      if (!continents) return false;
+      return true;
+    }),
     map(([state, continents]) => {
       const country = state.countries.find(
         (country) => country.id === state.countryId
       );
-      if(!country) return null;
+      if (!country) return null;
 
       const continentName = continents.find(
         (continent) => continent.id === country.continent
       )?.name;
 
-      if(!continentName) return null;
+      if (!continentName) return null;
       return { ...country, continent: continentName };
     }, distinctUntilChanged())
   );
 
-  // public get selectedCountry(): CountryI {
-  //   const countryId: string = this.subject.getValue().countryId;
-  //   return this.subject
-  //     .getValue()
-  //     .countries.find((country) => country.id === countryId);
-  // }
-
   constructor(
     private http: HttpClient,
-    private continentsService: ContinentService,
-    private citiesService: CitiesService
+    private continentsService: ContinentService
   ) {}
 
   setState(callback: Callback): void {
@@ -100,24 +100,53 @@ export class CountriesService {
     this.setState(callback);
   }
 
+  setSearchText(searchText: string): void{
+    const callback: Callback = (state) => {
+      return {...state, searchText};
+    }
+    this.setState(callback);
+  }
+
   loadCountries(): void {
     const request$ = this.http.get<CountryI[]>(
-      'http://localhost:3000/countries'
+      'http://localhost:3000/countries',
+      { observe: 'events' }
     );
-    request$.subscribe(
-      (response) => {
-        const callback: Callback = (state) => {
-          return { ...state, countries: response };
-        };
-        this.setState(callback);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        console.log('http request: GET is complete');
-      }
-    );
+    request$
+      .pipe(
+        tap((event) => {
+          if (event.type === HttpEventType.Sent) {
+            const callback: Callback = (state) => {
+              return { ...state, isLoading: true };
+            };
+            this.setState(callback);
+          }
+        }),
+        delay(2000),
+        tap((event) => {
+          if (event.type === HttpEventType.Response) {
+            const callback: Callback = (state) => {
+              return { ...state, isLoading: false };
+            };
+            this.setState(callback);
+          }
+        })
+      )
+      .subscribe(
+        (response: HttpResponse<CountryI[]>) => {
+          console.log(response);
+          const callback: Callback = (state) => {
+            return { ...state, countries: response.body };
+          };
+          this.setState(callback);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          console.log('http request: GET is complete');
+        }
+      );
   }
 
   postCountry(country: CountryI): void {

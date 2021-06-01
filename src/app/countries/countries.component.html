@@ -1,7 +1,17 @@
 <div class="countries-container">
   <a [routerLink]="['create']">+ Create new country</a>
   <hr />
+  <p *ngIf="(state$ | async)?.isLoading">Loading...</p>
+
   <ul *ngIf="countries$ | async as countries" class="countries-list">
+    <div class="search-container">
+      <input
+        type="text"
+        (input)="handleSearch($event.target.value)"
+        class="search-input"
+        placeholder="Search..."
+      />
+    </div>
     <li class="countries-list__item" *ngFor="let country of countries">
       <app-entity-list-item [data]="country"></app-entity-list-item>
     </li>
