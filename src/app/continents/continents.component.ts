@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ContinentI } from 'src/typings';
 import { ContinentService } from '../services/continents.service';
@@ -8,9 +8,11 @@ import { ModalService, ModalState } from '../services/modal.service';
   selector: 'app-continents',
   templateUrl: './continents.component.html',
   styleUrls: ['./continents.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContinentsComponent implements OnInit {
-  confirmDeleteion;
+  modalRespond: Record<string, unknown>;
+  currentContinentId: string;
   continents$: Observable<ContinentI[]> = this.continentsService.continents$;
   modalState$: Observable<ModalState> = this.modalService.state$;
   constructor(
@@ -18,9 +20,16 @@ export class ContinentsComponent implements OnInit {
     private modalService: ModalService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.modalState$.subscribe(
+      (modalRespond) =>
+        modalRespond.isConfirmed === true &&
+        this.continentsService.removeContinent(this.currentContinentId)
+    );
+  }
 
-  remove(id) {
-    this.modalService.open(id);
+  initRemove(id: string): void {
+    this.currentContinentId = id;
+    this.modalService.open();
   }
 }

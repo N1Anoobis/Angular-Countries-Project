@@ -4,12 +4,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ContinentService } from './continents.service';
 
 export interface ModalState {
-  id: string;
+  isConfirmed: boolean;
   display: 'close' | 'open';
 }
 
 const initialState: ModalState = {
-  id: '',
+  isConfirmed: false,
   display: 'close',
 };
 
@@ -22,31 +22,27 @@ export class ModalService {
   );
   readonly state$: Observable<ModalState> = this.display.asObservable();
 
-  constructor(private continentsServives: ContinentService) {}
-
   watch(): Observable<ModalState> {
     return this.display.asObservable();
   }
 
-  open(id) {
+  open() {
     this.display.next({
-      id: id,
+      isConfirmed: false,
       display: 'open',
     });
   }
 
   close() {
     this.display.next({
-      id: '',
+      isConfirmed: false,
       display: 'close',
     });
   }
 
-  confirmDeletion() {
-    const currentState = this.display.getValue();
-    this.continentsServives.removeContinent(currentState.id);
+  confirmDeletion(arg: boolean) {
     this.display.next({
-      id: '',
+      isConfirmed: arg,
       display: 'close',
     });
   }

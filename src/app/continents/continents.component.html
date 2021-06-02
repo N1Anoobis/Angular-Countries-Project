@@ -6,7 +6,7 @@
       <div class="item" [routerLink]="['/continent', continent.name]">
         {{continent.name}}
       </div>
-      <span (click)="remove(continent.id)" class="cancel"> x </span>
+      <span (click)="initRemove(continent.id)" class="cancel"> x </span>
     </div>
   </div>
 </div>

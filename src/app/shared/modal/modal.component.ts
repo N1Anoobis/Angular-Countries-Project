@@ -23,6 +23,6 @@ export class ModalComponent implements OnInit {
   }
 
   confirmDeletion() {
-    this.modalService.confirmDeletion();
+    this.modalService.confirmDeletion(true);
   }
 }
