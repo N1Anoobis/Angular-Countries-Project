@@ -1,16 +1,14 @@
 <div>
   <table>
-    <th>NAME</th>
-    <th>ID</th>
-    <th>POPULATION</th>
-    <th>PDENSITY</th>
-    <th>CONTINENT</th>
-    <tr *ngFor="let country of countries">
-      <td>{{ country.name }}</td>
-      <td>{{ country.id }}</td>
-      <td>{{ country.population }}</td>
-      <td>{{ country.populationDensity }}</td>
-      <td>{{ country.continent }}</td>
+    <th *ngFor="let key of keyes">{{key}}</th>
+    <tr *ngFor="let item of items">
+      <td>{{ item.entity }}</td>
+      <td>{{ item.id }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.continent}}</td>
+      <td>{{ item.area }}</td>
+      <td>{{ item.population }}</td>
+      <td>{{ item.populationDensity }}</td>
     </tr>
   </table>
 </div>

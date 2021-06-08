@@ -3,13 +3,18 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-@Input() countries
-  constructor() { }
+  @Input() items;
+  keyes;
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit() {}
+
+  ngAfterInit(): void {
+    if (this.items) {
+      this.keyes = Object.keys(this.items[0]);
+    }
   }
-
 }
