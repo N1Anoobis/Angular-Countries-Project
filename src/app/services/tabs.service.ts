@@ -23,7 +23,6 @@ export class TabsService {
         const countriesResult = state.countries.filter(
           (country) => country.continent === continents
         );
-        console.log(countriesResult);
         return countriesResult;
       }, distinctUntilChanged())
     );

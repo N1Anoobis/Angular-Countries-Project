@@ -74,7 +74,6 @@ export class ContinentService {
   }
 
   setContinentId(id: string): void {
-    console.log(id, 'id set');
     const callback: (state: ContinentsState) => ContinentsState = (state) => {
       return { ...state, continentId: id };
     };
