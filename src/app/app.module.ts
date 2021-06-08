@@ -29,6 +29,7 @@ import { CityFormComponent } from './city-form/city-form.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { TabsComponent } from './shared/tabs/tabs.component';
 import { TabComponent } from './shared/tabs/tab/tab.component';
+import { TableComponent } from './shared/table/table.component';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
@@ -83,6 +84,7 @@ const appRoutes: Routes = [
     ModalComponent,
     TabsComponent,
     TabComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,

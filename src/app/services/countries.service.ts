@@ -122,7 +122,7 @@ export class CountriesService {
             this.setState(callback);
           }
         }),
-        delay(2000),
+        // delay(2000),
         tap((event) => {
           if (event.type === HttpEventType.Response) {
             const callback: Callback = (state) => {

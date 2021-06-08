@@ -7,11 +7,12 @@
        <li>population density: {{ continent.populationDensity }}</li>
      </ul>
 
-     <button class="item" [routerLink]="['/edit/continent', continent.name]">
+     <button class="item" [routerLink]="['/edit/continent', continent.id]">
        edit
      </button>
    </app-tab>
    <app-tab tabTitle="Countries">
-     Tab 2 content
+     <app-table [countries]="countriesInContinent$ | async">
+     </app-table>
    </app-tab>
  </app-tabs>

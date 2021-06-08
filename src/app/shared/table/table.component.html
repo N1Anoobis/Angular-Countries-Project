@@ -1,0 +1,16 @@
+<div>
+  <table>
+    <th>NAME</th>
+    <th>ID</th>
+    <th>POPULATION</th>
+    <th>PDENSITY</th>
+    <th>CONTINENT</th>
+    <tr *ngFor="let country of countries">
+      <td>{{ country.name }}</td>
+      <td>{{ country.id }}</td>
+      <td>{{ country.population }}</td>
+      <td>{{ country.populationDensity }}</td>
+      <td>{{ country.continent }}</td>
+    </tr>
+  </table>
+</div>

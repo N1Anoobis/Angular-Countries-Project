@@ -46,7 +46,7 @@ export class ContinentService {
 
   public readonly selectedContinent$: Observable<ContinentI> = this.state$.pipe(
     map(({ continents, continentId }) =>
-      continents.find((continent) => continent.name === continentId)
+      continents.find((continent) => continent.id === continentId)
     ),
     distinctUntilChanged()
   );
@@ -74,6 +74,7 @@ export class ContinentService {
   }
 
   setContinentId(id: string): void {
+    console.log(id, 'id set');
     const callback: (state: ContinentsState) => ContinentsState = (state) => {
       return { ...state, continentId: id };
     };
