@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ContinentService } from 'src/app/services/continents.service';
 import { ContinentI } from 'src/typings';
+import { TabsComponent } from '../../shared/tabs/tabs.component';
 
 @Component({
   selector: 'app-continent',

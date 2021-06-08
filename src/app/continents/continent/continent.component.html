@@ -1,10 +1,17 @@
-<ul *ngIf="selectedContinent$ | async as continent">
-  <li>name: {{ continent.name }}</li>
-  <li>area: {{ continent.area }}</li>
-  <li>population: {{ continent.population }}</li>
-  <li>population density: {{ continent.populationDensity }}</li>
-</ul>
+ <app-tabs>
+   <app-tab [tabTitle]="'Details'">
+     <ul *ngIf="selectedContinent$ | async as continent">
+       <li>name: {{ continent.name }}</li>
+       <li>area: {{ continent.area }}</li>
+       <li>population: {{ continent.population }}</li>
+       <li>population density: {{ continent.populationDensity }}</li>
+     </ul>
 
-   <button class="item" [routerLink]="['/edit/continent', continent.name]">
-     edit
-   </button>
+     <button class="item" [routerLink]="['/edit/continent', continent.name]">
+       edit
+     </button>
+   </app-tab>
+   <app-tab tabTitle="Countries">
+     Tab 2 content
+   </app-tab>
+ </app-tabs>
