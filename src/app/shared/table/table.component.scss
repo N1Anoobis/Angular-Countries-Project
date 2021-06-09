@@ -5,7 +5,10 @@ td {
   border-collapse: collapse;
   padding: 5px;
 }
-
+th {
+  background-color: lightblue;
+  cursor: pointer;
+}
 table tr:nth-child(odd) {
   background-color: #f1f1f1;
 }

@@ -1,7 +1,6 @@
 <div>
   <table>
-    <th>No.</th>
-    <th *ngFor="let key of keyes">{{ key }}</th>
+    <th (click)="sortTableColumn(key)" *ngFor="let key of keyes">{{ key }}</th>
     <tr *ngFor="let item of items; index as i">
       <td>{{ i + 1 + pageData.start }}</td>
       <td>{{ item.entity }}</td>
@@ -14,7 +13,7 @@
     </tr>
   </table>
   <div class="actions">
-    <button (click)="prev()"><strong> <</strong></button>
+    <button (click)="prev()"><strong><</strong></button>
     <div *ngFor="let pagNr of paginationNumbers; index as i">
       <div
         [ngClass]="{ active: pagNr === page + 1 }"

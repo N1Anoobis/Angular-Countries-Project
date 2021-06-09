@@ -1,13 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 const constants = {
-  PAGE_SIZE: 2,
+  PAGE_SIZE: 3,
 };
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit {
   @Input() data;
@@ -19,15 +25,19 @@ export class TableComponent implements OnInit {
     start: number;
     end: number;
   };
-
+  dataObsarvble$;
+  sortedData;
+  savedKey;
   constructor() {}
 
   ngOnInit() {
     if (this.data[0]) {
       this.keyes = Object.keys(this.data[0]);
+      this.keyes.unshift('No.');
     }
     this.initPagination();
   }
+
   private initPagination(): void {
     this.paginate(this.page, this.pageSize);
   }
@@ -40,7 +50,11 @@ export class TableComponent implements OnInit {
     }
     this.saveCalculatedPoint(startPoint, endPoint);
 
-    this.items = [...this.data.slice(startPoint, endPoint)];
+    if (this.sortedData) {
+      this.items = [...this.sortedData.slice(startPoint, endPoint)];
+    } else {
+      this.items = [...this.data.slice(startPoint, endPoint)];
+    }
   }
   private saveCalculatedPoint(start: number, end: number): void {
     this.pageData = {
@@ -82,6 +96,21 @@ export class TableComponent implements OnInit {
 
   public handlePaginate(pageNr: number): void {
     this.page = pageNr - 1;
+    this.paginate(this.page, this.pageSize);
+  }
+  sortTableColumn(key) {
+    if (key === this.savedKey) {
+      this.sortedData.reverse()
+    } else {
+      this.sortedData = this.data.sort((a, b) => {
+        const A = a[key];
+        const B = b[key];
+
+        return A < B ? -1 : A > B ? 1 : 0;
+      });
+    }
+    this.savedKey = key;
+
     this.paginate(this.page, this.pageSize);
   }
 }
