@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 const constants = {
-  PAGE_SIZE: 5,
+  PAGE_SIZE: 2,
 };
 
 @Component({
@@ -32,16 +32,17 @@ export class TableComponent implements OnInit {
     this.paginate(this.page, this.pageSize);
   }
   private paginate(page: number, pageSize: number): void {
-    const startPortion = page * pageSize;
-    let endPortion = startPortion + pageSize;
-    if (endPortion > this.size) {
-      endPortion -= endPortion - this.size;
-    }
-    this.saveCalculatedPortion(startPortion, endPortion);
+    const startPoint = page * pageSize;
+    let endPoint = startPoint + pageSize;
 
-    this.items = [...this.data.slice(startPortion, endPortion)];
+    if (endPoint > this.size) {
+      endPoint = this.size;
+    }
+    this.saveCalculatedPoint(startPoint, endPoint);
+
+    this.items = [...this.data.slice(startPoint, endPoint)];
   }
-  private saveCalculatedPortion(start: number, end: number): void {
+  private saveCalculatedPoint(start: number, end: number): void {
     this.pageData = {
       ...this.pageData,
       start,
@@ -57,6 +58,14 @@ export class TableComponent implements OnInit {
     return Math.ceil(this.size / this.pageSize);
   }
 
+  public get paginationNumbers(): number[] {
+    const pageNumbers: number[] | null = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+
   public prev(): void {
     if (this.page > 0) {
       this.page -= 1;
@@ -69,5 +78,10 @@ export class TableComponent implements OnInit {
       this.page += 1;
       this.paginate(this.page, this.pageSize);
     }
+  }
+
+  public handlePaginate(pageNr: number): void {
+    this.page = pageNr - 1;
+    this.paginate(this.page, this.pageSize);
   }
 }
