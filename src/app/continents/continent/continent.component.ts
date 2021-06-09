@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ContinentService } from 'src/app/services/continents.service';
 import { CountriesService } from 'src/app/services/countries.service';
@@ -13,6 +13,8 @@ import { TabsComponent } from '../../shared/tabs/tabs.component';
   styleUrls: ['./continent.component.scss'],
 })
 export class ContinentComponent implements OnInit {
+  @ViewChild('templateReference1') templateReference1: ElementRef;
+  @ViewChild('templateReference2') templateReference2: ElementRef;
   continent: { id: string };
   id;
   countries = [];
@@ -26,9 +28,8 @@ export class ContinentComponent implements OnInit {
     private route: ActivatedRoute,
     private continentsService: ContinentService,
     private tabsService: TabsService,
-
+    private router: Router
   ) {}
-
 
   ngOnInit(): void {
     this.continent = {
@@ -36,9 +37,31 @@ export class ContinentComponent implements OnInit {
     };
     this.continentsService.setContinentId(this.continent.id);
     this.selectedContinent$.subscribe((res) => (this.id = res.id));
+     const firstParam: string =
+       this.route.snapshot.queryParamMap.get('tab');
 
+    if (!firstParam) {
+   (<any>this.router).navigate([this.router.url], {
+     queryParams: { tab: `countries` },
+   });
+    }
   }
-  // ngOnDestroy() {
-  // this.countriesInContinent$.unsubscribe();
-  // }
+
+  clicked() {
+    // console.log(
+    //   this.templateReference1['active'],
+    //   this.templateReference2['active']
+    // );
+    this.router.navigate([], {
+      queryParams: {
+        tab: null,
+        // youCanRemoveMultiple: null,
+      },
+      queryParamsHandling: 'merge',
+    });
+
+    // this.router.navigate([this.router.url], {
+    //   queryParams: { tab: `details` },
+    // });
+  }
 }
