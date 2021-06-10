@@ -1,5 +1,10 @@
-import { HttpParams } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ContinentService } from 'src/app/services/continents.service';
@@ -13,6 +18,7 @@ import { Location } from '@angular/common';
   selector: 'app-continent',
   templateUrl: './continent.component.html',
   styleUrls: ['./continent.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContinentComponent implements OnInit {
   @ViewChild('templateReference1') templateReference1: ElementRef;
@@ -39,7 +45,6 @@ export class ContinentComponent implements OnInit {
       id: this.route.snapshot.params['id'],
     };
     this.continentsService.setContinentId(this.continent.id);
-    this.selectedContinent$.subscribe((res) => (this.id = res.id));
     const firstParam: string = this.route.snapshot.queryParamMap.get('tab');
 
     if (!firstParam) {

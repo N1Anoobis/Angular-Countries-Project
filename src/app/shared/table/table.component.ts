@@ -3,7 +3,9 @@ import {
   Component,
   Input,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
+import { CountryI } from 'src/typings';
 
 const constants = {
   PAGE_SIZE: 3,
@@ -16,7 +18,7 @@ const constants = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit {
-  @Input() data;
+  @Input() data: CountryI[];
   @Input() pageSize = constants.PAGE_SIZE;
   keyes;
   items;
@@ -30,12 +32,16 @@ export class TableComponent implements OnInit {
   savedKey;
   constructor() {}
 
-  ngOnInit() {
-    if (this.data[0]) {
-      this.keyes = Object.keys(this.data[0]);
-      this.keyes.unshift('No.');
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'].currentValue) {
+        if (this.data[0]) {
+          this.keyes = Object.keys(this.data[0]);
+          this.keyes.unshift('No.');
+        }
+      this.initPagination();
     }
-    this.initPagination();
   }
 
   private initPagination(): void {
@@ -100,7 +106,7 @@ export class TableComponent implements OnInit {
   }
   sortTableColumn(key) {
     if (key === this.savedKey) {
-      this.sortedData.reverse()
+      this.sortedData.reverse();
     } else {
       this.sortedData = this.data.sort((a, b) => {
         const A = a[key];

@@ -5,6 +5,9 @@ td {
   border-collapse: collapse;
   padding: 5px;
 }
+table {
+  min-width: 90vw;
+}
 th {
   background-color: lightblue;
   cursor: pointer;
@@ -29,8 +32,16 @@ table tr:nth-child(even) {
 .actions {
   margin-top: 10px;
   display: flex;
+  margin-top: auto;
 }
 
 .active {
   background-color: orange;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 150px;
+  height: 150px;
 }

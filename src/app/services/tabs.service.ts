@@ -3,7 +3,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { ContinentI, CountryI } from 'src/typings';
 import { ContinentService } from './continents.service';
-import { CountriesService, CountriesState } from './countries.service';
+import { CountriesService } from './countries.service';
 
 @Injectable({
   providedIn: 'root',

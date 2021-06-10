@@ -11,6 +11,7 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   ViewContainerRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import { TabComponent } from './tab/tab.component';
@@ -20,6 +21,7 @@ import { TabComponent } from './tab/tab.component';
   selector: 'app-tabs',
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsComponent implements AfterContentInit {
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;

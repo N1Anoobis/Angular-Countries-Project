@@ -1,5 +1,5 @@
  <app-tabs (click)="clicked()">
-   <app-tab  #templateReference1 [tabTitle]="'Countries'">
+   <app-tab #templateReference1 [tabTitle]="'Countries'">
      <ul *ngIf="selectedContinent$ | async as continent">
        <li>name: {{ continent.name }}</li>
        <li>area: {{ continent.area }}</li>
@@ -11,8 +11,9 @@
        edit
      </button>
    </app-tab>
-   <app-tab  #templateReference2 tabTitle="Details">
+   <app-tab *ngIf="(countriesInContinent$ | async); else loading" #templateReference2 tabTitle="Details">
      <app-table [data]="countriesInContinent$ | async">
      </app-table>
    </app-tab>
  </app-tabs>
+ <ng-template #loading>please go back to main menu. fix in progress</ng-template>
