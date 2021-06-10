@@ -1,11 +1,13 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ContinentService } from 'src/app/services/continents.service';
 import { CountriesService } from 'src/app/services/countries.service';
 import { TabsService } from 'src/app/services/tabs.service';
 import { ContinentI, CountryI } from 'src/typings';
 import { TabsComponent } from '../../shared/tabs/tabs.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-continent',
@@ -28,7 +30,8 @@ export class ContinentComponent implements OnInit {
     private route: ActivatedRoute,
     private continentsService: ContinentService,
     private tabsService: TabsService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -37,31 +40,20 @@ export class ContinentComponent implements OnInit {
     };
     this.continentsService.setContinentId(this.continent.id);
     this.selectedContinent$.subscribe((res) => (this.id = res.id));
-     const firstParam: string =
-       this.route.snapshot.queryParamMap.get('tab');
+    const firstParam: string = this.route.snapshot.queryParamMap.get('tab');
 
     if (!firstParam) {
-   (<any>this.router).navigate([this.router.url], {
-     queryParams: { tab: `countries` },
-   });
+      (<any>this.router).navigate([this.router.url], {
+        queryParams: { tab: `countries` },
+      });
     }
   }
 
   clicked() {
-    // console.log(
-    //   this.templateReference1['active'],
-    //   this.templateReference2['active']
-    // );
-    this.router.navigate([], {
-      queryParams: {
-        tab: null,
-        // youCanRemoveMultiple: null,
-      },
-      queryParamsHandling: 'merge',
-    });
-
-    // this.router.navigate([this.router.url], {
-    //   queryParams: { tab: `details` },
-    // });
+    if (this.templateReference2['active']) {
+      this.location.go(`${this.router.url.split('?')[0]}?tab=details`);
+    } else if (this.templateReference1['active']) {
+      this.location.go(`${this.router.url.split('?')[0]}?tab=countries`);
+    }
   }
 }
