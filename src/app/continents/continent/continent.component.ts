@@ -4,9 +4,10 @@ import {
   OnInit,
   ViewChild,
   ChangeDetectionStrategy,
+  SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ContinentService } from 'src/app/services/continents.service';
 import { CountriesService } from 'src/app/services/countries.service';
 import { TabsService } from 'src/app/services/tabs.service';
@@ -26,10 +27,12 @@ export class ContinentComponent implements OnInit {
   continent: { id: string };
   id;
   countries = [];
+  private paramsSubscription: Subscription;
+
   selectedContinent$: Observable<ContinentI> =
     this.continentsService.selectedContinent$;
 
-  countriesInContinent$: Observable<CountryI[] | ContinentI[]> =
+  countriesSorted$: Observable<CountryI[] | ContinentI[]> =
     this.tabsService.countriesInContinent$;
 
   constructor(
@@ -52,6 +55,9 @@ export class ContinentComponent implements OnInit {
         queryParams: { tab: `countries` },
       });
     }
+    this.paramsSubscription = this.countriesSorted$.subscribe(
+      (res) => (this.countries = res)
+    );
   }
 
   clicked() {
@@ -60,5 +66,9 @@ export class ContinentComponent implements OnInit {
     } else if (this.templateReference1['active']) {
       this.location.go(`${this.router.url.split('?')[0]}?tab=countries`);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.paramsSubscription.unsubscribe();
   }
 }

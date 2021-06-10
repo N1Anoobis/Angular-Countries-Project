@@ -16,13 +16,12 @@ export class TabsService {
 
   public readonly countriesInContinent$: Observable<CountryI[] | ContinentI[]> =
     combineLatest([
-      this.countriesService.state$,
+      this.countriesService.countries$,
       this.continentsService.continentId$,
     ]).pipe(
-      map(([state, continents]) => {
-        const countriesResult = state.countries.filter(
-          (country) => country.continent === continents
-        );
+      map(([countries, continents]) => {
+        const countriesResult =
+          countries.filter((country) => country.continent === continents);
         return countriesResult;
       }, distinctUntilChanged())
     );

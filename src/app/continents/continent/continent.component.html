@@ -11,8 +11,8 @@
        edit
      </button>
    </app-tab>
-   <app-tab *ngIf="(countriesInContinent$ | async); else loading" #templateReference2 tabTitle="Details">
-     <app-table [data]="countriesInContinent$ | async">
+   <app-tab *ngIf="(countries); else loading" #templateReference2 tabTitle="Details">
+     <app-table [data]="countries">
      </app-table>
    </app-tab>
  </app-tabs>
