@@ -27,6 +27,11 @@ import { PopulationPipe } from './shared/population.pipe';
 import { DropdownComponent } from './shared/form/dropdown/dropdown.component';
 import { CityFormComponent } from './city-form/city-form.component';
 import { ModalComponent } from './shared/modal/modal.component';
+import { CountryDetailsComponent } from './countries/country/country-details/country-details.component';
+import { CountryCitiesComponent } from './countries/country/country-cities/country-cities.component';
+import { PaginationComponent } from './countries/country/country-cities/pagination/pagination.component';
+import { CitiesTableComponent } from './countries/country/country-cities/cities-table/cities-table.component';
+import { SortingArrowComponent } from './shared/sorting-arrow/sorting-arrow.component';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
@@ -37,10 +42,33 @@ const appRoutes: Routes = [
     path: 'countries',
     component: RouterOutletComponent,
     children: [
-      { path: '', component: CountriesComponent },
+      {
+        path: '',
+        component: CountriesComponent,
+      },
+      {
+        path: ':id',
+        component: RouterOutletComponent,
+        children: [
+          {
+            path: '',
+            component: CountryComponent,
+            children: [
+              {
+                path: 'details',
+                component: CountryDetailsComponent,
+              },
+              {
+                path: 'cities',
+                component: CountryCitiesComponent,
+              },
+            ],
+          },
+        ],
+      },
+
       { path: 'create', component: CountryFormComponent },
       { path: 'edit/:id', component: CountryFormComponent },
-      { path: ':id', component: CountryComponent },
     ],
   },
   {
@@ -79,6 +107,11 @@ const appRoutes: Routes = [
     DropdownComponent,
     CityFormComponent,
     ModalComponent,
+    CountryDetailsComponent,
+    CountryCitiesComponent,
+    PaginationComponent,
+    CitiesTableComponent,
+    SortingArrowComponent,
   ],
   imports: [
     BrowserModule,

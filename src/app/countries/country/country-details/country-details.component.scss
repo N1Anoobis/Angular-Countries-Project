@@ -1,0 +1,42 @@
+.country-container {
+  margin-left: 50px;
+  padding: 30px 60px;
+  max-width: fit-content;
+  background-color: rgb(243, 243, 243);
+}
+
+.country-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  list-style: none;
+}
+
+.country-item {
+  padding: 5px;
+}
+
+.item-name {
+  font-style: italic;
+}
+
+.country-buttons {
+  align-self: flex-end;
+}
+
+.edit,
+.delete {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 5px 15px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(255, 232, 167);
+  }
+}

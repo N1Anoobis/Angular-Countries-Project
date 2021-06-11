@@ -1,0 +1,20 @@
+<div class="container">
+  <button
+    class="button prev-btn"
+    [disabled]="currentPage === 1"
+    (click)="handlePrevious()"
+  >
+    previous
+  </button>
+  <p class="pages">
+    page: <span class="page">{{ currentPage }}</span> of
+    <span class="page-count">{{ pagesCount }}</span>
+  </p>
+  <button
+    class="button next-btn"
+    [disabled]="currentPage === pagesCount"
+    (click)="handleNext()"
+  >
+    next
+  </button>
+</div>

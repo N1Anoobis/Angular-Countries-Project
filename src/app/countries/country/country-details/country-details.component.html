@@ -1,0 +1,28 @@
+<div class="country-container">
+  <ul *ngIf="selectedCountry$ | async as country" class="country-list">
+    <li class="country-item">
+      <span class="item-name">Name:</span>
+      {{ country.name }}
+    </li>
+    <li class="country-item">
+      <span class="item-name">Continent:</span>
+      {{ country.continent }}
+    </li>
+    <li class="country-item">
+      <span class="item-name">Area:</span>
+      {{ country.area }} square km
+    </li>
+    <li class="country-item">
+      <span class="item-name">Population:</span>
+      {{ country.population | population }}
+    </li>
+    <li class="country-item">
+      <span class="item-name">Population density:</span>
+      {{ country.populationDensity }} people per square km
+    </li>
+    <div class="country-buttons">
+      <button (click)="onEdit(country.id)" class="edit">Edit</button>
+      <button (click)="onDelete(country.id)" class="delete">Delete</button>
+    </div>
+  </ul>
+</div>

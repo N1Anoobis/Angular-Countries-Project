@@ -40,7 +40,7 @@ export class CountriesService {
 
   public readonly filteredCountries$: Observable<CountryI[]> = this.state$.pipe(
     map(({ countries, searchText }) => {
-      if(searchText === '') return countries;
+      if (searchText === '') return countries;
       return countries.filter((country) =>
         country.name.toLowerCase().includes(searchText.toLowerCase())
       );
@@ -83,6 +83,17 @@ export class CountriesService {
     }, distinctUntilChanged())
   );
 
+  public readonly selectedCountryName$: Observable<string> =
+    this.selectedCountry$.pipe(
+      filter((country) => {
+        if (country === null) return false;
+        return true;
+      }),
+      map((country) => {
+        return country.name;
+      })
+    );
+
   constructor(
     private http: HttpClient,
     private continentsService: ContinentService
@@ -100,10 +111,10 @@ export class CountriesService {
     this.setState(callback);
   }
 
-  setSearchText(searchText: string): void{
+  setSearchText(searchText: string): void {
     const callback: Callback = (state) => {
-      return {...state, searchText};
-    }
+      return { ...state, searchText };
+    };
     this.setState(callback);
   }
 
@@ -122,7 +133,7 @@ export class CountriesService {
             this.setState(callback);
           }
         }),
-        delay(2000),
+        delay(1000),
         tap((event) => {
           if (event.type === HttpEventType.Response) {
             const callback: Callback = (state) => {
