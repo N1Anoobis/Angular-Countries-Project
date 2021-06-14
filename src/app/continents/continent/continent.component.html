@@ -1,10 +1,19 @@
-<ul *ngIf="selectedContinent$ | async as continent">
-  <li>name: {{ continent.name }}</li>
-  <li>area: {{ continent.area }}</li>
-  <li>population: {{ continent.population }}</li>
-  <li>population density: {{ continent.populationDensity }}</li>
-</ul>
+ <app-tabs (click)="clicked()">
+   <app-tab #templateReference1 [tabTitle]="'Countries'">
+     <ul *ngIf="selectedContinent$ | async as continent">
+       <li>name: {{ continent.name }}</li>
+       <li>area: {{ continent.area }}</li>
+       <li>population: {{ continent.population }}</li>
+       <li>population density: {{ continent.populationDensity }}</li>
+     </ul>
 
-   <button class="item" [routerLink]="['/edit/continent', continent.name]">
-     edit
-   </button>
+     <button class="item" [routerLink]="['/edit/continent', continent.id]">
+       edit
+     </button>
+   </app-tab>
+   <app-tab *ngIf="(countries); else loading" #templateReference2 tabTitle="Details">
+     <app-table [data]="countries">
+     </app-table>
+   </app-tab>
+ </app-tabs>
+ <ng-template #loading>please go back to main menu. fix in progress</ng-template>

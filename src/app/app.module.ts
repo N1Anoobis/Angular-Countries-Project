@@ -27,6 +27,9 @@ import { PopulationPipe } from './shared/population.pipe';
 import { DropdownComponent } from './shared/form/dropdown/dropdown.component';
 import { CityFormComponent } from './city-form/city-form.component';
 import { ModalComponent } from './shared/modal/modal.component';
+import { TabsComponent } from './shared/tabs/tabs.component';
+import { TabComponent } from './shared/tabs/tab/tab.component';
+import { TableComponent } from './shared/table/table.component';
 import { CountryDetailsComponent } from './countries/country/country-details/country-details.component';
 import { CountryCitiesComponent } from './countries/country/country-cities/country-cities.component';
 import { PaginationComponent } from './countries/country/country-cities/pagination/pagination.component';
@@ -107,6 +110,9 @@ const appRoutes: Routes = [
     DropdownComponent,
     CityFormComponent,
     ModalComponent,
+    TabsComponent,
+    TabComponent,
+    TableComponent,
     CountryDetailsComponent,
     CountryCitiesComponent,
     PaginationComponent,

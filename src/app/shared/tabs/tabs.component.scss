@@ -1,0 +1,25 @@
+.tab-close {
+  color: gray;
+  text-align: right;
+  cursor: pointer;
+}
+
+.tabs {
+  list-style: none;
+  border-bottom: 1px solid black;
+}
+
+.active {
+  background-color: orange;
+}
+
+li {
+  width: 100px;
+  display: inline-flex;
+  border: 1px solid black;
+  padding: 10px;
+  cursor: pointer;
+  &:hover {
+    color: green;
+  }
+}
