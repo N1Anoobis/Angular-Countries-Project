@@ -1,0 +1,58 @@
+<table class="table">
+  <tr class="header-row">
+    <th class="header-row__item" #name (click)="handleChangeSorting('name')">
+      Name
+      <app-sorting-arrow
+        *ngIf="sortingPerColumn === 'name'"
+        [sortingOrder]="sortingOrder"
+      ></app-sorting-arrow>
+    </th>
+    <th class="header-row__item" #area (click)="handleChangeSorting('area')">
+      Area
+      <app-sorting-arrow
+        *ngIf="sortingPerColumn === 'area'"
+        [sortingOrder]="sortingOrder"
+      ></app-sorting-arrow>
+    </th>
+    <th
+      class="header-row__item"
+      #population
+      (click)="handleChangeSorting('population')"
+    >
+      Population
+      <app-sorting-arrow
+        *ngIf="sortingPerColumn === 'population'"
+        [sortingOrder]="sortingOrder"
+      ></app-sorting-arrow>
+    </th>
+    <th
+      class="header-row__item"
+      #populationDensity
+      (click)="handleChangeSorting('populationDensity')"
+    >
+      Population density
+      <app-sorting-arrow
+        *ngIf="sortingPerColumn === 'populationDensity'"
+        [sortingOrder]="sortingOrder"
+      ></app-sorting-arrow>
+    </th>
+    <th
+      class="header-row__item"
+      #isCapital
+      (click)="handleChangeSorting('isCapital')"
+    >
+      Is capital
+      <app-sorting-arrow
+        *ngIf="sortingPerColumn === 'isCapital'"
+        [sortingOrder]="sortingOrder"
+      ></app-sorting-arrow>
+    </th>
+  </tr>
+  <tr *ngFor="let city of data" class="row">
+    <td class="row__item">{{ city.name }}</td>
+    <td class="row__item">{{ city.area }}</td>
+    <td class="row__item">{{ city.population }}</td>
+    <td class="row__item">{{ city.populationDensity }}</td>
+    <td class="row__item"><i *ngIf="city.isCapital" class="fas fa-check"></i></td>
+  </tr>
+</table>

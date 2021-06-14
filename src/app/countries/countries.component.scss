@@ -1,5 +1,7 @@
 .countries-container {
-  margin: 0 50px;
+  width: 100%;
+  height: calc(100% - 70px);
+  padding: 0 50px;
 }
 
 .countries-list {
@@ -17,4 +19,22 @@
   min-width: 300px;
   border: 1px solid #ccc;
   border-radius: 3px;
+}
+
+.link {
+  padding: 5px 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(255, 232, 167);
+  }
+
+  &.active {
+    background-color: rgb(255, 232, 167);
+  }
 }

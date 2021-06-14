@@ -1,0 +1,14 @@
+<div class="container">
+  <app-pagination
+    [currentPage]="currentPage$ | async"
+    [pagesCount]="pagesCount$ | async"
+    (onPreviousPage)="handlePreviousPage()"
+    (onNextPage)="handleNextPage()"
+  ></app-pagination>
+  <app-cities-table
+    [data]="citiesPage$ | async"
+    [sortingPerColumn]="sortingPerColumn$ | async"
+    [sortingOrder]="sortingOrder$ | async"
+    (changeSorting)="handleSorting($event)"
+  ></app-cities-table>
+</div>

@@ -1,28 +1,31 @@
-<div class="country-container">
-  <ul *ngIf="selectedCountry$ | async as country" class="country-list">
-    <li class="country-item">
-      <span class="item-name">Name:</span>
-      {{ country.name }}
+<h3 class="heading">
+  Country: <span>{{ selectedCountryName$ | async }}</span>
+</h3>
+<nav>
+  <ul class="tabs-list">
+    <li>
+      <a
+        routerLink="./details"
+        routerLinkActive="active"
+        class="tabs-list__link"
+        >Details</a
+      >
     </li>
-    <li class="country-item">
-      <span class="item-name">Continent:</span>
-      {{ country.continent }}
+    <li>
+      <a
+        routerLink="./cities"
+        routerLinkActive=""
+        #rla="routerLinkActive"
+        hidden
+      ></a>
+      <a
+        routerLink="./cities"
+        [queryParams]="{ page: 1, sorting: 'name', order: 'ascending' }"
+        [class.active]="rla.isActive"
+        class="tabs-list__link"
+        >Cities</a
+      >
     </li>
-    <li class="country-item">
-      <span class="item-name">Area:</span>
-      {{ country.area }} square km
-    </li>
-    <li class="country-item">
-      <span class="item-name">Population:</span>
-      {{ country.population | population }}
-    </li>
-    <li class="country-item">
-      <span class="item-name">Population density:</span>
-      {{ country.populationDensity }} people per square km
-    </li>
-    <div class="country-buttons">
-      <button (click)="onEdit(country.id)" class="edit">Edit</button>
-      <button (click)="onDelete(country.id)" class="delete">Delete</button>
-    </div>
   </ul>
-</div>
+</nav>
+<router-outlet></router-outlet>

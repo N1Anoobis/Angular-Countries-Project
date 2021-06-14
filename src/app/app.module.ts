@@ -30,6 +30,11 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { TabsComponent } from './shared/tabs/tabs.component';
 import { TabComponent } from './shared/tabs/tab/tab.component';
 import { TableComponent } from './shared/table/table.component';
+import { CountryDetailsComponent } from './countries/country/country-details/country-details.component';
+import { CountryCitiesComponent } from './countries/country/country-cities/country-cities.component';
+import { PaginationComponent } from './countries/country/country-cities/pagination/pagination.component';
+import { CitiesTableComponent } from './countries/country/country-cities/cities-table/cities-table.component';
+import { SortingArrowComponent } from './shared/sorting-arrow/sorting-arrow.component';
 
 const appRoutes: Routes = [
   { path: 'continents', component: ContinentsComponent },
@@ -40,10 +45,33 @@ const appRoutes: Routes = [
     path: 'countries',
     component: RouterOutletComponent,
     children: [
-      { path: '', component: CountriesComponent },
+      {
+        path: '',
+        component: CountriesComponent,
+      },
+      {
+        path: ':id',
+        component: RouterOutletComponent,
+        children: [
+          {
+            path: '',
+            component: CountryComponent,
+            children: [
+              {
+                path: 'details',
+                component: CountryDetailsComponent,
+              },
+              {
+                path: 'cities',
+                component: CountryCitiesComponent,
+              },
+            ],
+          },
+        ],
+      },
+
       { path: 'create', component: CountryFormComponent },
       { path: 'edit/:id', component: CountryFormComponent },
-      { path: ':id', component: CountryComponent },
     ],
   },
   {
@@ -85,6 +113,11 @@ const appRoutes: Routes = [
     TabsComponent,
     TabComponent,
     TableComponent,
+    CountryDetailsComponent,
+    CountryCitiesComponent,
+    PaginationComponent,
+    CitiesTableComponent,
+    SortingArrowComponent,
   ],
   imports: [
     BrowserModule,
