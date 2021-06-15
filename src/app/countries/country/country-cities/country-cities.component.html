@@ -1,4 +1,7 @@
-<div class="container">
+<div
+  class="container"
+  *ngIf="(citiesPage$ | async).length > 0; else noCitiesMsg"
+>
   <app-pagination
     [currentPage]="currentPage$ | async"
     [pagesCount]="pagesCount$ | async"
@@ -12,3 +15,6 @@
     (changeSorting)="handleSorting($event)"
   ></app-cities-table>
 </div>
+<ng-template #noCitiesMsg>
+  <p class="no-cities-msg">No cities are assigned to this country.</p>
+</ng-template>
